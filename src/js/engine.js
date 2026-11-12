@@ -204,6 +204,7 @@ HW.E = (function () {
     if (g.brand === 'AMD') return /6500|6400/.test(g.n) ? 'Sin codificador' : g.rt >= 2 ? 'AMF con AV1' : 'AMF (H.264/HEVC)';
     return 'QuickSync con AV1 (muy bueno)';
   };
+  E.gpuBf = function (g) { var now = HW.prices.gpu[g.n], bf = HW.bfPrices && HW.bfPrices.gpu[g.n]; if (!now || !bf) return null; return { now: now, bf: bf, pct: Math.round((1 - bf / now) * 100) }; };
   E.gpuPrice = function (g) { var p = HW.prices.gpu[g.n]; return p ? { v: p, cur: '€', note: 'precio orientativo ' + HW.PRICE_DATE } : (g.msrp ? { v: g.msrp, cur: '$', note: 'precio de salida' } : null); };
   var GUSES = {
     g1080: { t: 'juegos a 1080p', res: '1080' }, g1440: { t: 'juegos a 1440p', res: '1440' }, g4k: { t: 'juegos a 4K', res: '4k' },

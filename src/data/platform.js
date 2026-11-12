@@ -88,6 +88,13 @@ HW.prices = {
   cpu: { 'Core i3-12100F': 75, 'Core i5-12400F': 100, 'Core i5-13400F': 150, 'Core i5-14400F': 160, 'Core i5-14600K': 220, 'Core i7-14700K': 330, 'Core i9-14900K': 450, 'Ryzen 5 5600': 95, 'Ryzen 7 5700X3D': 230, 'Ryzen 7 5800X3D': 330, 'Ryzen 5 7500F': 140, 'Ryzen 5 7600': 180, 'Ryzen 5 9600X': 210, 'Ryzen 7 7700': 250, 'Ryzen 7 9700X': 290, 'Ryzen 7 7800X3D': 380, 'Ryzen 7 9800X3D': 460, 'Ryzen 7 9850X3D': 510, 'Ryzen 9 9900X': 380, 'Ryzen 9 9950X': 560, 'Ryzen 9 9950X3D': 680, 'Ryzen 9 9950X3D2': 900, 'Core Ultra 5 225': 210, 'Core Ultra 5 245K': 250, 'Core Ultra 5 250K Plus': 220, 'Core Ultra 7 265K': 300, 'Core Ultra 7 270K Plus': 320, 'Core Ultra 9 285K': 560, 'Ryzen 5 8600G': 200, 'Ryzen 7 8700G': 290 },
   gpu: { 'Arc B570': 230, 'Arc B580': 290, 'RTX 5050': 270, 'RTX 5060': 330, 'RX 9060 XT 8GB': 320, 'RX 9060 XT 16GB': 420, 'RTX 5060 Ti 8GB': 410, 'RTX 5060 Ti 16GB': 500, 'RX 9070 GRE': 560, 'RTX 5070': 650, 'RX 9070': 640, 'RX 9070 XT': 760, 'RTX 5070 Ti': 950, 'RTX 5080': 1350, 'RTX 5090': 3300, 'RX 7600': 260, 'RTX 4060': 300 }
 };
+// Predicción de Black Friday (27/11/2026). Estimación propia, NO un dato: descuentos típicos en España
+// del 8-12 % en gama media y del 3-7 % en gama alta (escasa por la demanda de la IA). Restos de
+// generación anterior (RTX 4060, RX 7600) suelen bajar algo más para liquidar stock.
+HW.BF_DATE = '27/11/2026';
+HW.bfPrices = {
+  gpu: { 'Arc B570': 205, 'Arc B580': 260, 'RTX 5050': 245, 'RTX 5060': 295, 'RX 9060 XT 8GB': 285, 'RX 9060 XT 16GB': 380, 'RTX 5060 Ti 8GB': 370, 'RTX 5060 Ti 16GB': 450, 'RX 9070 GRE': 510, 'RTX 5070': 590, 'RX 9070': 580, 'RX 9070 XT': 690, 'RTX 5070 Ti': 880, 'RTX 5080': 1270, 'RTX 5090': 3150, 'RX 7600': 225, 'RTX 4060': 265 }
+};
 HW.boards = [
   { id: 'b-h610', n: 'Placa H610 DDR4 (Micro-ATX básica)', chip: 'H610', ddr: 'DDR4', ff: 'Micro-ATX', m2: 1, sata: 4, vrm: 1, price: 85, share: 'Un solo M.2. Sin overclock de memoria.' },
   { id: 'b-b760d4', n: 'Placa B760 DDR4 (Micro-ATX)', chip: 'B760', ddr: 'DDR4', ff: 'Micro-ATX', m2: 2, sata: 4, vrm: 2, price: 115, share: 'El 2.º M.2 suele ir por el chipset.' },

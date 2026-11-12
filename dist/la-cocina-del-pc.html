@@ -703,6 +703,13 @@ HW.prices = {
   cpu: { 'Core i3-12100F': 75, 'Core i5-12400F': 100, 'Core i5-13400F': 150, 'Core i5-14400F': 160, 'Core i5-14600K': 220, 'Core i7-14700K': 330, 'Core i9-14900K': 450, 'Ryzen 5 5600': 95, 'Ryzen 7 5700X3D': 230, 'Ryzen 7 5800X3D': 330, 'Ryzen 5 7500F': 140, 'Ryzen 5 7600': 180, 'Ryzen 5 9600X': 210, 'Ryzen 7 7700': 250, 'Ryzen 7 9700X': 290, 'Ryzen 7 7800X3D': 380, 'Ryzen 7 9800X3D': 460, 'Ryzen 7 9850X3D': 510, 'Ryzen 9 9900X': 380, 'Ryzen 9 9950X': 560, 'Ryzen 9 9950X3D': 680, 'Ryzen 9 9950X3D2': 900, 'Core Ultra 5 225': 210, 'Core Ultra 5 245K': 250, 'Core Ultra 5 250K Plus': 220, 'Core Ultra 7 265K': 300, 'Core Ultra 7 270K Plus': 320, 'Core Ultra 9 285K': 560, 'Ryzen 5 8600G': 200, 'Ryzen 7 8700G': 290 },
   gpu: { 'Arc B570': 230, 'Arc B580': 290, 'RTX 5050': 270, 'RTX 5060': 330, 'RX 9060 XT 8GB': 320, 'RX 9060 XT 16GB': 420, 'RTX 5060 Ti 8GB': 410, 'RTX 5060 Ti 16GB': 500, 'RX 9070 GRE': 560, 'RTX 5070': 650, 'RX 9070': 640, 'RX 9070 XT': 760, 'RTX 5070 Ti': 950, 'RTX 5080': 1350, 'RTX 5090': 3300, 'RX 7600': 260, 'RTX 4060': 300 }
 };
+// Predicción de Black Friday (27/11/2026). Estimación propia, NO un dato: descuentos típicos en España
+// del 8-12 % en gama media y del 3-7 % en gama alta (escasa por la demanda de la IA). Restos de
+// generación anterior (RTX 4060, RX 7600) suelen bajar algo más para liquidar stock.
+HW.BF_DATE = '27/11/2026';
+HW.bfPrices = {
+  gpu: { 'Arc B570': 205, 'Arc B580': 260, 'RTX 5050': 245, 'RTX 5060': 295, 'RX 9060 XT 8GB': 285, 'RX 9060 XT 16GB': 380, 'RTX 5060 Ti 8GB': 370, 'RTX 5060 Ti 16GB': 450, 'RX 9070 GRE': 510, 'RTX 5070': 590, 'RX 9070': 580, 'RX 9070 XT': 690, 'RTX 5070 Ti': 880, 'RTX 5080': 1270, 'RTX 5090': 3150, 'RX 7600': 225, 'RTX 4060': 265 }
+};
 HW.boards = [
   { id: 'b-h610', n: 'Placa H610 DDR4 (Micro-ATX básica)', chip: 'H610', ddr: 'DDR4', ff: 'Micro-ATX', m2: 1, sata: 4, vrm: 1, price: 85, share: 'Un solo M.2. Sin overclock de memoria.' },
   { id: 'b-b760d4', n: 'Placa B760 DDR4 (Micro-ATX)', chip: 'B760', ddr: 'DDR4', ff: 'Micro-ATX', m2: 2, sata: 4, vrm: 2, price: 115, share: 'El 2.º M.2 suele ir por el chipset.' },
@@ -1854,6 +1861,7 @@ HW.E = (function () {
     if (g.brand === 'AMD') return /6500|6400/.test(g.n) ? 'Sin codificador' : g.rt >= 2 ? 'AMF con AV1' : 'AMF (H.264/HEVC)';
     return 'QuickSync con AV1 (muy bueno)';
   };
+  E.gpuBf = function (g) { var now = HW.prices.gpu[g.n], bf = HW.bfPrices && HW.bfPrices.gpu[g.n]; if (!now || !bf) return null; return { now: now, bf: bf, pct: Math.round((1 - bf / now) * 100) }; };
   E.gpuPrice = function (g) { var p = HW.prices.gpu[g.n]; return p ? { v: p, cur: '€', note: 'precio orientativo ' + HW.PRICE_DATE } : (g.msrp ? { v: g.msrp, cur: '$', note: 'precio de salida' } : null); };
   var GUSES = {
     g1080: { t: 'juegos a 1080p', res: '1080' }, g1440: { t: 'juegos a 1440p', res: '1440' }, g4k: { t: 'juegos a 4K', res: '4k' },
@@ -2408,12 +2416,23 @@ window.HW = window.HW || {};
     var C = HW.ui.cat, open = C.open === g.id, pr = E.gpuPrice(g);
     return '<div class="spec-item' + (g.mine ? ' mine' : '') + '" data-act="openSpec" data-id="' + g.id + '" role="button" tabindex="0" aria-expanded="' + open + '"><div class="spec-head"><b>' + h(g.brand + ' ' + g.n) + '</b><span class="tiny muted mono">' + g.y + '</span></div>' +
       '<div class="row">' + (g.mine ? '<span class="pill me">Mi PC</span>' : '') + '<span class="pill">' + h(g.arch) + '</span><span class="pill">' + g.vram + ' GB ' + h(g.vt) + '</span><span class="pill">' + g.tbp + ' W</span>' + (g.lanes < 16 ? '<span class="pill warn">PCIe x' + g.lanes + '</span>' : '') + '</div>' +
+      gpuPriceLine(g) +
       HW.bar('1080p', E.gpuPerf(g, '1080'), 100) + HW.bar('1440p', g.p, 100, true) + HW.bar('4K', E.gpuPerf(g, '4k'), 100) +
       (open ? '<div class="kv" style="margin-top:6px">' + [
         ['Arquitectura', g.arch], ['Chip', g.code], ['Nodo', g.node], ['VRAM', g.vram + ' GB ' + g.vt + ' · bus ' + g.bus + ' bits · ' + E.fmt(g.bw, 0) + ' GB/s'], ['Shaders', E.fmt(g.sh, 0)], ['Núcleos RT', g.rt ? g.rt + '.ª generación' : 'No tiene'], ['Núcleos de IA', g.ai],
         ['Consumo', g.tbp + ' W'], ['Conector', g.conn], ['Fuente recomendada', g.psu + ' W (fabricante)'], ['PCIe', g.pcie + ' x' + g.lanes], ['Escalado', g.up], ['Codificador', E.encoder(g)], ['Longitud típica', '≈' + g.len + ' mm (mira tu modelo)'],
-        ['Índices', '1080p ' + E.gpuPerf(g, '1080') + ' (est.) · 1440p ' + g.p + ' · 4K ' + E.gpuPerf(g, '4k') + ' (est.). RTX 5090 = 100; aprox., TechPowerUp/HUB'], ['Fiabilidad del dato', HW.confPill(g.conf)], ['Precio', pr ? pr.v + ' ' + pr.cur + ' (' + pr.note + ')' : 'No disponible'], ['Rival', g.riv || '—'], ['Notas', g.note || '—']
+        ['Índices', '1080p ' + E.gpuPerf(g, '1080') + ' (est.) · 1440p ' + g.p + ' · 4K ' + E.gpuPerf(g, '4k') + ' (est.). RTX 5090 = 100; aprox., TechPowerUp/HUB'], ['Fiabilidad del dato', HW.confPill(g.conf)], ['Precio', pr ? pr.v + ' ' + pr.cur + ' (' + pr.note + ')' : 'No disponible'], ['Black Friday (predicción)', bfTxt(g)], ['Rival', g.riv || '—'], ['Notas', g.note || '—']
       ].map(function (r) { return '<div>' + r[0] + '</div><div>' + r[1] + '</div>'; }).join('') + '</div><div class="row"><button class="btn sm" data-act="toCmp" data-id="' + g.id + '">Comparar</button><button class="btn sm" data-act="decodeThis" data-n="' + h(g.n) + '">Descomponer el nombre</button></div>' : '') + '</div>';
+  }
+  function gpuPriceLine(g) {
+    var bf = E.gpuBf(g), pr = E.gpuPrice(g);
+    if (bf) return '<div class="row small" style="margin:4px 0"><span class="pill">Ahora ≈' + bf.now + ' €</span><span class="pill a">Black Friday ≈' + bf.bf + ' € (−' + bf.pct + ' %)</span></div>';
+    return '<div class="row small muted" style="margin:4px 0">' + (pr ? 'Salida: ' + pr.v + ' ' + pr.cur + ' · ' : '') + 'Ya no se vende nueva de forma habitual</div>';
+  }
+  function bfTxt(g) {
+    var bf = E.gpuBf(g);
+    if (!bf) return 'Sin predicción: no se vende nueva de forma habitual. Si la buscas de segunda mano, compara con el precio de una nueva que rinda igual.';
+    return '≈' + bf.bf + ' € el ' + HW.BF_DATE + ' (≈' + bf.pct + ' % menos que ahora). Es una estimación propia, no un dato. Si la ves a ese precio o menos, es buena compra. Mira el historial de precios (Keepa en Amazon, idealo en el resto) para no caer en descuentos inflados.';
   }
   function timelineSvg() {
     var lanes = Object.keys(HW.timeline), x0 = 110, y0 = 30, W = 1100, lh = 92, min = 2016, max = 2027.5;
@@ -2445,13 +2464,14 @@ window.HW = window.HW || {};
       if (C.q && E.norm(x.brand + x.n + (x.code || '') + (x.socket || '') + (x.arch || '')).indexOf(E.norm(C.q)) < 0) return false;
       return true;
     }).slice();
-    var sorts = { year: function (a, b) { return b.y - a.y; }, perf: function (a, b) { return C.kind === 'cpu' ? E.gameIdx(b).v - E.gameIdx(a).v : b.p - a.p; }, multi: function (a, b) { return C.kind === 'cpu' ? b.m - a.m : b.vram - a.vram; }, price: function (a, b) { return (a.msrp || 99999) - (b.msrp || 99999); } };
+    var sorts = { year: function (a, b) { return b.y - a.y; }, perf: function (a, b) { return C.kind === 'cpu' ? E.gameIdx(b).v - E.gameIdx(a).v : b.p - a.p; }, multi: function (a, b) { return C.kind === 'cpu' ? b.m - a.m : b.vram - a.vram; }, price: function (a, b) { return (a.msrp || 99999) - (b.msrp || 99999); }, now: function (a, b) { var P = C.kind === 'cpu' ? HW.prices.cpu : HW.prices.gpu; return (P[a.n] || 99999) - (P[b.n] || 99999); } };
     list.sort(sorts[C.sort] || sorts.year);
     return head + '<div class="stack card"><label class="field">Buscar<input type="search" id="catQ" placeholder="Modelo, arquitectura, zócalo…" value="' + h(C.q) + '" data-chg="catQ"></label>' +
       '<div class="chips">' + ['', ].concat(brands).map(function (b) { return '<button class="chip" data-act="catBrand" data-b="' + b + '" aria-pressed="' + (C.brand === b) + '">' + (b || 'Todas las marcas') + '</button>'; }).join('') + '</div>' +
       (C.kind === 'cpu' ? '<div class="chips">' + [['desktop', 'Sobremesa'], ['laptop', 'Portátil'], ['', 'Todos']].map(function (s) { return '<button class="chip" data-act="catSeg" data-s="' + s[0] + '" aria-pressed="' + (C.seg === s[0]) + '">' + s[1] + '</button>'; }).join('') + '</div>' : '') +
-      '<label class="field">Ordenar<select id="catSort" data-chg="catSort">' + [['year', 'Más nuevos'], ['perf', C.kind === 'cpu' ? 'Índice de juegos' : 'Rendimiento 1440p'], ['multi', C.kind === 'cpu' ? 'Multinúcleo' : 'VRAM'], ['price', 'Precio de salida']].map(function (o) { return '<option value="' + o[0] + '"' + (C.sort === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label></div>' +
+      '<label class="field">Ordenar<select id="catSort" data-chg="catSort">' + [['year', 'Más nuevos'], ['perf', C.kind === 'cpu' ? 'Índice de juegos' : 'Rendimiento 1440p'], ['multi', C.kind === 'cpu' ? 'Multinúcleo' : 'VRAM'], ['price', 'Precio de salida'], ['now', 'Precio actual']].map(function (o) { return '<option value="' + o[0] + '"' + (C.sort === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label></div>' +
       '<p class="small muted">' + list.length + ' modelos. Índices aproximados a partir de análisis de TechPowerUp y Hardware Unboxed (' + (C.kind === 'cpu' ? 'juegos: Ryzen 7 9800X3D = 100 a 1080p; multinúcleo: Ryzen 9 9950X = 100' : 'RTX 5090 = 100 a 1440p; 1080p y 4K estimados') + '). No uses estos números como cifras exactas.</p>' +
+      (C.kind === 'gpu' ? '<p class="small muted">Precios: orientativos de tienda española (' + HW.PRICE_DATE + '). Black Friday (' + HW.BF_DATE + '): <b>predicción propia</b> según los descuentos típicos (≈8-12 % en gama media, 3-7 % en gama alta). Compruébalo siempre en la tienda.</p>' : '') +
       '<div class="spec-list">' + list.map(C.kind === 'cpu' ? cpuCard : gpuCard).join('') + '</div></section>';
   };
   HW.A.catKind = function (el) { HW.ui.cat.kind = el.dataset.k; HW.ui.cat.open = null; HW.ui.cat.brand = ''; HW.rerender(); };
