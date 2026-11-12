@@ -23,9 +23,12 @@ HW.E = (function () {
   E.tier = function (c) { var m = c.n.match(/(?:i|Ryzen |Ultra |Core )([3579])\b/); if (/Ultra X/.test(c.n)) { var x = c.n.match(/X([579])/); return x ? +x[1] : 7; } return m ? +m[1] : 5; };
   E.gameIdx = function (c) {
     if (c.g != null) return { v: c.g, est: c.conf !== 'rev' };
-    // Portátiles: estimación a partir del rendimiento por núcleo y la caché (muy aproximado)
-    var v = E.perCore(c) * 9.2 + Math.min(c.l3, 96) * 0.12 + Math.min(c.c, 8) * 0.6 - 25;
-    return { v: Math.round(v * 0.85), est: true };
+    // Portátiles (muy aproximado): 1) "equivalente de sobremesa" con una regresión ajustada a los
+    // índices de los procesadores de sobremesa (error medio ≈ 3 puntos); 2) recorte según la potencia
+    // sostenida (TDP), porque en portátil el chef trabaja con menos agua y gas.
+    var desk = 8.1 * E.perCore(c) + 0.93 * Math.log2(c.l3) + 1.7 * Math.min(E.effCores(c), 8) - 9.5 + (c.x3d ? 6 : 0);
+    var f = c.tdp >= 55 ? .92 : c.tdp >= 35 ? .88 : c.tdp >= 25 ? .84 : .74;
+    return { v: Math.round(desk * f), est: true };
   };
   E.cpuPrice = function (c) { var p = HW.prices.cpu[c.n]; return p ? { v: p, cur: '€', note: 'precio orientativo ' + HW.PRICE_DATE } : (c.msrp ? { v: c.msrp, cur: '$', note: 'precio de salida' } : null); };
   E.alive = function (c) {
