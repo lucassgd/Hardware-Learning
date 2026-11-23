@@ -14,6 +14,8 @@ window.HW = window.HW || {};
     HW.storageOk = true;
   } catch (e) { HW.storageOk = false; }
   if (!HW.S.myPc) HW.S.myPc = Object.assign({}, HW.myPcDefault);
+  /* Datos antiguos (suponían una GTX 1660 SUPER): pasan a los datos reales y conservan lo que tú rellenaste. */
+  if (!HW.S.myPc.v || HW.S.myPc.v < HW.myPcDefault.v) { var old = HW.S.myPc; HW.S.myPc = Object.assign({}, HW.myPcDefault, { chip: old.chip || '', psuW: old.psuW || 0, caseLen: old.caseLen || 0 }); try { localStorage.setItem(KEY, JSON.stringify(HW.S)); } catch (e) {} }
   HW.save = function () { try { localStorage.setItem(KEY, JSON.stringify(HW.S)); } catch (e) {} };
   HW.exportCode = function () { return 'CPC1.' + btoa(unescape(encodeURIComponent(JSON.stringify(HW.S)))); };
   HW.importCode = function (code) {
@@ -55,7 +57,7 @@ window.HW = window.HW || {};
   HW.TABS = [['aprender', 'Aprender'], ['catalogo', 'Catálogo'], ['comparar', 'Comparar'], ['nombres', 'Nombres'], ['herramientas', 'Herram.'], ['practicar', 'Practicar'], ['glosario', 'Glosario']];
   HW.route = function () {
     var hsh = (location.hash || '').replace('#', '') || 'aprender', view = hsh, arg = null;
-    var m = hsh.match(/^leccion-([a-r])$/); if (m) { view = 'leccion'; arg = m[1]; }
+    var m = hsh.match(/^leccion-([a-z])$/); if (m) { view = 'leccion'; arg = m[1]; }
     if (!HW.V[view]) view = 'aprender';
     var tab = view === 'leccion' ? 'aprender' : view;
     document.querySelectorAll('nav.tabs button').forEach(function (b) { if (b.dataset.tab === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });

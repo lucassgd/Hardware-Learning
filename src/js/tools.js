@@ -31,7 +31,7 @@
     if (T === 'compat') { var c = st.compat; c.cpu = v('cCpu'); c.board = v('cBoard'); c.ram = v('cRam'); c.gpu = v('cGpu'); c.psu = v('cPsu'); c.cas = v('cCase'); c.cooler = v('cCool'); c.st = HW.storages.filter(function (s) { var n = document.getElementById('cSt-' + s.id); return n && +n.value > 0; }).reduce(function (acc, s) { for (var i = 0; i < +document.getElementById('cSt-' + s.id).value; i++) acc.push(s.id); return acc; }, []); }
     if (T === 'swap') { var s = st.swap; s.what = v('sWhat') || s.what; if (v('sCpu')) s.cpu = v('sCpu'); if (v('sGpu')) s.gpu = v('sGpu'); if (v('sDdr')) s.ddr = v('sDdr'); if (v('sRes')) s.res = v('sRes'); }
     if (T === 'bott') { st.bott.cpu = v('bCpu'); st.bott.gpu = v('bGpu'); st.bott.res = v('bRes'); }
-    if (T === 'mipc') { var p = HW.S.myPc; p.chip = v('mChip') || ''; p.psuW = +v('mPsu') || 0; p.ramMods = +v('mMods') || 0; p.caseLen = +v('mLen') || 0; p.ram = '16 GB DDR4 (' + (p.ramMods === 1 ? '1 módulo: un canal' : p.ramMods === 2 ? '2 módulos: doble canal' : 'módulos: no lo sé') + ')'; HW.save(); }
+    if (T === 'mipc') { var p = HW.S.myPc; p.chip = v('mChip') || ''; p.psuW = +v('mPsu') || 0; p.ramMods = +v('mMods') || 0; p.caseLen = +v('mLen') || 0; p.ram = '16 GB DDR4-3200 (' + (p.ramMods === 1 ? '1 módulo: un canal' : p.ramMods === 2 ? '2 × 8 GB: doble canal' : 'módulos: no lo sé') + ')'; HW.save(); }
   }
 
   var VIEWS = {};
@@ -132,7 +132,7 @@
     var S = st.swap, R = swapAnswer();
     var vt = { ok: ['ok', 'Sí, se puede'], warn: ['warn', 'Se puede, con condiciones'], bad: ['bad', 'No, o no sin cambiar más cosas'] }[R.verdict];
     return '<div class="card"><h2>¿Puedo cambiar X por Y?</h2><p class="small muted">Parto de tu PC (' + h(HW.S.myPc.cpu) + ', ' + h(HW.S.myPc.gpu) + ', ' + h(HW.S.myPc.ddr) + (HW.S.myPc.chip ? ', chipset ' + h(HW.S.myPc.chip) : '') + (HW.S.myPc.psuW ? ', fuente ' + HW.S.myPc.psuW + ' W' : '') + '). Cambia esos datos en "Mi PC".</p>' +
-      '<div class="chips">' + [['Q1', '¿Un i7-14700K en mi placa?'], ['Q2', '¿DDR5 en mi placa DDR4?'], ['Q3', '¿Una RTX 5070 en mi PC?'], ['Q4', '¿Un Ryzen 7 9800X3D en mi placa?'], ['Q5', '¿Un i5-14400F en mi placa?']].map(function (q) { return '<button class="chip" data-act="swapQ" data-q="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="chips">' + [['Q1', '¿Un i7-14700K en mi placa?'], ['Q2', '¿DDR5 en mi placa DDR4?'], ['Q3', '¿Una RTX 5070 en mi PC?'], ['Q6', '¿Una RX 9060 XT 16GB en mi PC?'], ['Q7', '¿Una RX 9070 en mi PC?'], ['Q4', '¿Un Ryzen 7 9800X3D en mi placa?'], ['Q5', '¿Un i5-14400F en mi placa?']].map(function (q) { return '<button class="chip" data-act="swapQ" data-q="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
       '<label class="field">Quiero cambiar' + sel('sWhat', [['cpu', 'El procesador'], ['gpu', 'La gráfica'], ['ram', 'La RAM']].map(function (o) { return '<option value="' + o[0] + '"' + (S.what === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('')) + '</label>' +
       (S.what === 'cpu' ? '<label class="field">Por' + sel('sCpu', HW.cpuOptions(S.cpu)) + '</label>' : '') +
       (S.what === 'gpu' ? '<label class="field">Por' + sel('sGpu', HW.gpuOptions(S.gpu)) + '</label><label class="field">Resolución' + sel('sRes', [['1080', '1080p'], ['1440', '1440p'], ['4k', '4K']].map(function (o) { return '<option value="' + o[0] + '"' + (S.res === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('')) + '</label>' : '') +
@@ -146,6 +146,8 @@
     if (q === 'Q3') { S.what = 'gpu'; S.gpu = 'gpu-rtx-5070'; }
     if (q === 'Q4') { S.what = 'cpu'; S.cpu = 'cpu-ryzen-7-9800x3d'; }
     if (q === 'Q5') { S.what = 'cpu'; S.cpu = 'cpu-core-i5-14400f'; }
+    if (q === 'Q6') { S.what = 'gpu'; S.gpu = 'gpu-rx-9060-xt-16gb'; }
+    if (q === 'Q7') { S.what = 'gpu'; S.gpu = 'gpu-rx-9070'; }
     HW.rerender();
   };
 
@@ -239,9 +241,12 @@
   /* ---------- Mi PC y progreso ---------- */
   VIEWS.mipc = function () {
     var p = HW.S.myPc, chips = HW.chipsets.filter(function (c) { return c.s === HW.myCpu().socket; });
-    return '<div class="card"><h2>Mi PC</h2><p class="small">' + h(p.cpu) + ' · ' + h(p.gpu) + ' · 16 GB DDR4 · ' + h(p.storage) + ' · ' + h(p.os) + '</p>' +
+    var pl = HW.myPlan, bfNow = HW.E.gpuBf(HW.E.findGpu(pl.gpu));
+    return '<div class="card"><h2>Mi PC</h2><p class="small"><b>' + h(p.model || '') + '</b> · BIOS ' + h(p.bios || '?') + '</p>' +
+      '<div class="table-wrap"><table><tbody>' + [['Jefe (CPU)', p.cpu + ' · 6 núcleos / 12 hilos'], ['Pinches (GPU)', p.gpu + ' · ' + (p.vram || 12) + ' GB'], ['Encimera (RAM)', p.ram + ' · máximo ' + (p.ramMax || 64) + ' GB (2 × 32)'], ['Despensa', p.storage], ['Camarero (monitor)', p.monitor || '?'], ['Red', p.net || '?'], ['Sistema', p.os]].map(function (r) { return '<tr><td class="small muted">' + r[0] + '</td><td class="small">' + h(r[1]) + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+      '<div class="box mine"><h4>Plan de mejora (orientativo)</h4><ol class="small"><li>Comprar una <b>' + h(pl.gpu) + '</b> de 2 ventiladores en Black Friday (' + HW.BF_DATE + '): referencia ≈' + (bfNow ? bfNow.bf : pl.bf) + ' €, <b>no pagar más de ≈' + pl.max + ' €</b>. ≈50-60 % más que tu 3060 y 16 GB.</li><li>Vender la 3060 (≈' + pl.sell + ' €): coste neto ≈200-230 €.</li><li>Cambio de drivers: DDU en modo seguro para quitar NVIDIA → AMD Adrenalin → activar FreeSync → DisplayPort a 280 Hz.</li><li>Sin cambiar fuente ni RAM: tu fuente ya mueve una gráfica de 170 W con un 8 pines.</li></ol><p class="small">Alternativa: <b>' + h(pl.alt) + '</b> (≈2 × tu 3060) solo si caben ' + h(pl.altLen) + ' en la caja, y con fuente ' + h(pl.altPsu) + '. Opción 0 €: seguir con la 3060 y DLSS en Calidad.</p><p class="small muted">Evita las de 8 GB: serían menos mesa que la que ya tienes.</p></div>' +
       '<label class="field">Chipset de la placa (msinfo32 o CPU-Z → Mainboard)<select id="mChip" data-chg="toolChg"><option value="">No lo sé todavía</option>' + chips.map(function (c) { return '<option' + (p.chip === c.id ? ' selected' : '') + '>' + c.id + '</option>'; }).join('') + '</select></label>' +
-      '<label class="field">Módulos de RAM (Administrador de tareas → Memoria → Ranuras usadas)<select id="mMods" data-chg="toolChg">' + [[0, 'No lo sé'], [1, '1 módulo (1 × 16 GB)'], [2, '2 módulos (2 × 8 GB)']].map(function (o) { return '<option value="' + o[0] + '"' + (p.ramMods === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
+      '<label class="field">Módulos de RAM (Administrador de tareas → Memoria → Ranuras usadas)<select id="mMods" data-chg="toolChg">' + [[0, 'No lo sé'], [1, '1 módulo (1 × 16 GB)'], [2, '2 módulos (2 × 8 GB) · el tuyo']].map(function (o) { return '<option value="' + o[0] + '"' + (p.ramMods === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
       '<label class="field">Fuente: vatios de la pegatina (0 = no lo sé)<input type="number" id="mPsu" inputmode="numeric" value="' + (p.psuW || 0) + '" data-chg="toolChg"></label>' +
       '<label class="field">Caja: longitud máxima de gráfica en mm (0 = no lo sé)<input type="number" id="mLen" inputmode="numeric" value="' + (p.caseLen || 0) + '" data-chg="toolChg"></label>' +
       (p.ramMods === 1 ? '<div class="box tip"><p>Tienes un solo módulo: añadir otro igual te da doble canal (encimera completa) y 32 GB.</p></div>' : '') +

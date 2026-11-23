@@ -155,7 +155,9 @@ HW.coolers = [
 ];
 
 /* Mi PC (caso práctico). Lo que no sé lo marco como desconocido. */
-HW.myPcDefault = { cpu: 'Core i5-12400F', gpu: 'GTX 1660 SUPER', ram: '16 GB DDR4 (módulos: no lo sé)', ddr: 'DDR4', ramGb: 16, ramMods: 0, storage: 'SSD 512 GB', board: 'desconocida', chip: '', psuW: 0, os: 'Windows 11' };
+HW.myPcDefault = { v: 2, model: 'Acer Nitro N50-640 (caja de ≈18 L)', cpu: 'Core i5-12400F', gpu: 'RTX 3060', vram: 12, ram: '16 GB DDR4-3200 (2 × 8 GB Micron, doble canal)', ddr: 'DDR4', ramGb: 16, ramMax: 64, ramMods: 2, storage: 'SSD NVMe 1 TB (WD SN530)', board: 'Acer Nitro N50-640 (chipset sin confirmar)', bios: 'R01-B2', chip: '', psuW: 0, caseLen: 0, monitor: 'HP OMEN 27qs G2 · 1440p · 280 Hz · DisplayPort', net: 'PLC TP-Link TL-PA7017P KIT (Gigabit, enchufe pasante)', os: 'Windows 11' };
+/* Plan de mejora acordado (11/2026). Orientativo: precios aproximados de Black Friday. */
+HW.myPlan = { gpu: 'RX 9060 XT 16GB', max: 450, bf: 380, sell: '150-180', alt: 'RX 9070', altPsu: '650 W 80 Plus Gold (≈70 €)', altLen: '280-320 mm' };
 
 /* Línea de tiempo por marca para el catálogo */
 HW.timeline = {

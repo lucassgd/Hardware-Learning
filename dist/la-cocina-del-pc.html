@@ -510,7 +510,7 @@ HW.fam({ brand: 'NVIDIA', y: 2016, arch: 'Pascal', node: 'TSMC 16 nm', rt: 0, ai
 ]),
 HW.fam({ brand: 'NVIDIA', y: 2019, arch: 'Turing (sin RT)', node: 'TSMC 12 nm', rt: 0, ai: 'No', pcie: '3.0', lanes: 16, up: 'Sin DLSS. FSR 1-3 y XeSS (modo genérico). FSR 3 Frame Generation funciona.', conf: 'rev' }, [
   { n: 'GTX 1660 Ti', code: 'TU116', vram: 6, vt: 'GDDR6', bus: 192, bw: 288, sh: 1536, tbp: 120, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 279, p: 12.5, riv: 'RX 5600 XT' },
-  { n: 'GTX 1660 SUPER', code: 'TU116', vram: 6, vt: 'GDDR6', bus: 192, bw: 336, sh: 1408, tbp: 125, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 229, p: 12, riv: 'RX 5500 XT 8GB', mine: true, note: 'Tu gráfica. Rinde casi como la 1660 Ti gracias a su memoria GDDR6 rápida. 6 GB se quedan cortos en juegos de 2024-2026.' },
+  { n: 'GTX 1660 SUPER', code: 'TU116', vram: 6, vt: 'GDDR6', bus: 192, bw: 336, sh: 1408, tbp: 125, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 229, p: 12, riv: 'RX 5500 XT 8GB', note: 'Rinde casi como la 1660 Ti gracias a su memoria GDDR6 rápida. 6 GB se quedan cortos en juegos de 2024-2026.' },
   { n: 'GTX 1660', code: 'TU116', vram: 6, vt: 'GDDR5', bus: 192, bw: 192, sh: 1408, tbp: 120, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 219, p: 11, riv: 'RX 590' },
   { n: 'GTX 1650 SUPER', code: 'TU116', vram: 4, vt: 'GDDR6', bus: 128, bw: 192, sh: 1280, tbp: 100, conn: '1 × 6 pines', psu: 350, len: 200, msrp: 159, p: 9, riv: 'RX 5500 XT 4GB' },
   { n: 'GTX 1650', code: 'TU117', vram: 4, vt: 'GDDR5 / GDDR6', bus: 128, bw: 128, sh: 896, tbp: 75, conn: 'Ninguno (la mayoría)', psu: 300, len: 170, msrp: 149, p: 7, riv: 'RX 570' }
@@ -533,7 +533,7 @@ HW.fam({ brand: 'NVIDIA', y: 2020, arch: 'Ampere', node: 'Samsung 8 nm', rt: 2, 
   { n: 'RTX 3070 Ti', y: 2021, code: 'GA104', vram: 8, vt: 'GDDR6X', bus: 256, bw: 608, sh: 6144, tbp: 290, conn: '2 × 8 pines', psu: 750, len: 270, msrp: 599, p: 31, riv: 'RX 6800' },
   { n: 'RTX 3070', code: 'GA104', vram: 8, vt: 'GDDR6', bus: 256, bw: 448, sh: 5888, tbp: 220, conn: '1 × 8 o 2 × 8 pines', psu: 650, len: 242, msrp: 499, p: 29, riv: 'RX 6700 XT' },
   { n: 'RTX 3060 Ti', code: 'GA104', vram: 8, vt: 'GDDR6', bus: 256, bw: 448, sh: 4864, tbp: 200, conn: '1 × 8 pines', psu: 600, len: 242, msrp: 399, p: 25, riv: 'RX 6700 XT' },
-  { n: 'RTX 3060', y: 2021, code: 'GA106', vram: 12, vt: 'GDDR6', bus: 192, bw: 360, sh: 3584, tbp: 170, conn: '1 × 8 pines', psu: 550, len: 242, msrp: 329, p: 19, riv: 'RX 6600 XT', note: 'Existe una versión de 8 GB con bus de 128 bits, bastante peor. Mira bien la caja.' },
+  { n: 'RTX 3060', y: 2021, code: 'GA106', vram: 12, vt: 'GDDR6', bus: 192, bw: 360, sh: 3584, tbp: 170, conn: '1 × 8 pines', psu: 550, len: 242, msrp: 329, p: 19, riv: 'RX 6600 XT', mine: true, note: 'Tu gráfica (confirmada con PowerShell). 12 GB de VRAM: más mesa que muchas gráficas nuevas de 8 GB. Tiene DLSS (sin Frame Generation de NVIDIA) y RT de 2.ª generación. Existe una versión de 8 GB con bus de 128 bits, bastante peor: mira «Memoria de GPU dedicada» en el Administrador de tareas.' },
   { n: 'RTX 3050', y: 2022, code: 'GA106', vram: 8, vt: 'GDDR6', bus: 128, bw: 224, sh: 2560, tbp: 130, conn: '1 × 8 pines', psu: 550, len: 200, msrp: 249, lanes: 8, p: 12.5, riv: 'RX 6600' },
   { n: 'RTX 3050 6GB', y: 2024, code: 'GA107', vram: 6, vt: 'GDDR6', bus: 96, bw: 168, sh: 2304, tbp: 70, conn: 'Ninguno', psu: 300, len: 180, msrp: 169, lanes: 8, p: 9, riv: 'RX 6400', note: 'Trampa: mismo nombre que la 3050 de 8 GB, pero bastante más lenta.' }
 ]),
@@ -770,7 +770,9 @@ HW.coolers = [
 ];
 
 /* Mi PC (caso práctico). Lo que no sé lo marco como desconocido. */
-HW.myPcDefault = { cpu: 'Core i5-12400F', gpu: 'GTX 1660 SUPER', ram: '16 GB DDR4 (módulos: no lo sé)', ddr: 'DDR4', ramGb: 16, ramMods: 0, storage: 'SSD 512 GB', board: 'desconocida', chip: '', psuW: 0, os: 'Windows 11' };
+HW.myPcDefault = { v: 2, model: 'Acer Nitro N50-640 (caja de ≈18 L)', cpu: 'Core i5-12400F', gpu: 'RTX 3060', vram: 12, ram: '16 GB DDR4-3200 (2 × 8 GB Micron, doble canal)', ddr: 'DDR4', ramGb: 16, ramMax: 64, ramMods: 2, storage: 'SSD NVMe 1 TB (WD SN530)', board: 'Acer Nitro N50-640 (chipset sin confirmar)', bios: 'R01-B2', chip: '', psuW: 0, caseLen: 0, monitor: 'HP OMEN 27qs G2 · 1440p · 280 Hz · DisplayPort', net: 'PLC TP-Link TL-PA7017P KIT (Gigabit, enchufe pasante)', os: 'Windows 11' };
+/* Plan de mejora acordado (11/2026). Orientativo: precios aproximados de Black Friday. */
+HW.myPlan = { gpu: 'RX 9060 XT 16GB', max: 450, bf: 380, sell: '150-180', alt: 'RX 9070', altPsu: '650 W 80 Plus Gold (≈70 €)', altLen: '280-320 mm' };
 
 /* Línea de tiempo por marca para el catálogo */
 HW.timeline = {
@@ -1033,7 +1035,7 @@ HW.lessons.push(
   { c: { h: 'Aparición tardía de objetos', term: 'Pop-in', q: 'Objetos o texturas que aparecen de golpe o se ven borrosos y luego se definen.', a: 'El plato sale a la ventanilla sin la guarnición, y la ponen un segundo después.', e: 'Con 6 GB de VRAM, juegos como Hogwarts Legacy en "ultra" muestran texturas borrosas porque no caben todas.', t: 'Se confunde con falta de potencia; muchas veces es falta de VRAM o un disco lento.' } },
   { c: { h: 'DirectStorage', term: 'Microsoft DirectStorage', q: 'Tecnología de Windows que permite que los datos vayan del SSD NVMe a la VRAM con menos trabajo de la CPU, y que la GPU los descomprima.', a: 'Un montacargas directo de la despensa a la mesa de los pinches, sin pasar por las manos del jefe.', e: 'Forspoken y Ratchet & Clank: Rift Apart lo usan. Exige Windows 10/11 y rinde mejor con NVMe.', t: 'No aumenta los FPS en general: acorta cargas y puede reducir tirones. Pocos juegos lo usan a fondo.' } },
   { c: { h: 'Archivo de paginación', term: 'Pagefile / memoria virtual', q: 'Cuando la RAM se llena, Windows mueve datos poco usados al SSD para hacer sitio.', a: 'Cuando la encimera está llena, el chef deja cosas en el suelo de la despensa. Funciona, pero cada vez que las necesita pierde tiempo.', e: 'Con 16 GB y un juego exigente más Chrome con 30 pestañas, Windows tirará del pagefile y notarás tirones.', t: 'No lo desactives: si se acaba la RAM y no hay pagefile, los programas se cierran.' } },
-  { mine: 'Tu PC en la cocina: un jefe con 6 chefs rápidos (i5-12400F), un ejército de 1.408 pinches con una mesa de 6 GB (GTX 1660 SUPER), una encimera de 16 GB (DDR4) y una despensa de 512 GB. En casi cualquier juego actual, los pinches van a tope antes que el jefe: tu límite es la gráfica.' }
+  { mine: 'Tu PC en la cocina: un jefe con 6 chefs rápidos (i5-12400F), un ejército de 3.584 pinches con una mesa de 12 GB (RTX 3060), una encimera completa de 16 GB (2 × 8 GB DDR4-3200, doble canal), una despensa de 1 TB (NVMe) y un camarero muy rápido (monitor 1440p a 280 Hz). A 1440p los pinches van a tope antes que el jefe: tu límite es la gráfica.' }
 ], quiz: [
   { q: '¿Qué pieza hace la mayor parte del trabajo de dibujar cada fotograma?', o: ['La CPU', 'La GPU', 'La RAM', 'El SSD'], a: 1, x: 'La GPU (el ejército de pinches) calcula los píxeles. La CPU le dice qué dibujar.' },
   { q: 'Tu juego muestra texturas borrosas que se definen tarde. ¿Qué es lo más probable?', o: ['Falta de núcleos en la CPU', 'Falta de VRAM o disco lento (pop-in)', 'El monitor es de 60 Hz', 'La fuente es pequeña'], a: 1, x: 'El pop-in suele venir de VRAM insuficiente o de un almacenamiento lento que no llega a tiempo.' },
@@ -1165,7 +1167,7 @@ HW.lessons.push(
   { ul: [ '<b>NVIDIA:</b> GTX (sin RT) / RTX (con RT y DLSS). Primeros dígitos = generación (10, 16, 20, 30, 40, 50). Últimos = gama (50 básica, 60 media, 70 media-alta, 80 alta, 90 tope). Ti = un escalón más. SUPER = refresco a mitad de generación.', '<b>AMD:</b> RX + generación (5000, 6000, 7000, 9000; se saltaron la 8000) + gama (9060 media, 9070 alta). XT = más potente; XTX = la tope; GRE = versión recortada.', '<b>Intel Arc:</b> A (Alchemist, 2022), B (Battlemage, 2024). Número de gama: 3, 5, 7.' ] },
   { p: 'Estado a 11/11/2026: las RTX 50 SUPER no han salido. Se retrasaron por la escasez de memoria GDDR7 y hay informaciones contradictorias sobre si se cancelaron (por verificar). La generación vigente es RTX 50 frente a RX 9000. La Arc B770 tampoco ha salido.' },
   { c: { h: 'Gráficas para IA local', term: 'Local AI / LLM / Stable Diffusion', q: 'Para ejecutar modelos de IA en casa manda la VRAM (que quepa el modelo) y el soporte de software (CUDA).', a: 'Para una receta enorme necesitas una mesa enorme: si no cabe, los pinches trabajan a trozos.', e: 'Un modelo de 8 mil millones de parámetros a 4 bits ≈ 5-6 GB. Uno de 32 mil millones ≈ 20 GB. Por eso la RTX 3090 de 24 GB de segunda mano sigue tan buscada.', t: 'Una gráfica rápida con 8 GB puede ser peor para IA que una más lenta con 16 GB.' } },
-  { mine: 'Tu GTX 1660 SUPER: Turing sin RT, 1.408 CUDA, 6 GB GDDR6 a 336 GB/s, 125 W con un 8 pines, PCIe 3.0 x16. No tiene DLSS ni RT por hardware. Para juegos actuales a 1080p se queda corta sobre todo por los 6 GB y por la falta de RT.' }
+  { mine: 'Tu RTX 3060: Ampere, 3.584 CUDA, 12 GB GDDR6 a 360 GB/s, 170 W con un 8 pines, PCIe 4.0 x16. Tiene DLSS (Super Resolution, sin Frame Generation de NVIDIA) y RT de 2.ª generación. Sus 12 GB son más mesa que la de muchas gráficas nuevas de 8 GB; le falta potencia bruta para 1440p alto en juegos de 2025-2026: usa DLSS en Calidad.' }
 ], quiz: [
   { q: '¿Se pueden comparar los CUDA cores de NVIDIA con los Stream Processors de AMD?', o: ['Sí, el que tenga más gana', 'No, cada arquitectura hace distinto trabajo por núcleo', 'Solo en la misma gama', 'Sí, multiplicando por 2'], a: 1, x: 'Compara rendimiento medido, no núcleos.' },
   { q: '¿Qué pasa con los fotogramas generados (Frame Generation)?', o: ['Responden igual que los reales', 'Suben los FPS en pantalla, pero no reducen la latencia', 'Reducen la latencia', 'Solo funcionan a 1080p'], a: 1, x: 'La latencia sigue siendo la de los FPS reales.' },
@@ -1210,7 +1212,7 @@ HW.lessons.push(
   { c: { h: 'La mejor combinación por plataforma', term: 'Sweet spot', q: 'Cada plataforma tiene una velocidad que rinde bien sin problemas de estabilidad.', a: 'La altura ideal de la encimera para cada chef.', e: 'AM5: DDR5-6000 CL30 (la controladora y el Infinity Fabric van 1:1 hasta ≈6000-6400). Intel 12.ª-14.ª: DDR5-6000-6800 o DDR4-3200/3600 CL16. Core Ultra 200S: DDR5-6400 a 8000 (CUDIMM). AM4: DDR4-3600 CL16.', t: 'En AM5, DDR5-8000 no suele mejorar a DDR5-6000 CL30 porque rompe el 1:1.' } },
   { c: { h: 'Compatibilidad', term: 'QVL (Qualified Vendor List)', q: 'La lista de módulos que el fabricante de la placa ha probado.', a: 'La lista de encimeras que el edificio ha homologado.', e: 'En la web de tu placa, sección "Soporte" → "Memoria".', t: 'No estar en la QVL no significa que no funcione, pero si da problemas, es lo primero que te preguntarán.' } },
   { warn: 'Precios en noviembre de 2026: la DDR5 ha multiplicado su precio desde 2025 por la demanda de memoria para IA (HBM y DDR5 de servidor). Team Group dijo el 2/11/2026 que lo peor llegaría entre el cuarto trimestre de 2026 y el segundo de 2027. Si tienes DDR4, quedarte en plataforma DDR4 ahorra mucho dinero.' },
-  { mine: 'Comprueba tus módulos: Administrador de tareas → Rendimiento → Memoria → "Ranuras usadas: 1 de 2" o "2 de 2". Si es 1 de 2, añadir otro módulo igual de 16 GB te da doble canal y 32 GB: es una de las mejoras más baratas.' }
+  { mine: 'Tus módulos (confirmado): 2 × 8 GB Micron DDR4-3200 en doble canal, la encimera completa. Tu placa admite hasta 64 GB (2 × 32). Para jugar, 16 GB bastan hoy; si algún día te quedas corto, cambia a 2 × 16 GB (no añadas módulos distintos a los que ya tienes).' }
 ], quiz: [
   { q: '¿Qué latencia real tiene una DDR4-3200 CL16?', o: ['16 ns', '10 ns', '3,2 ns', '20 ns'], a: 1, x: '16 × 2000 / 3200 = 10 ns.' },
   { q: 'Con dos módulos, ¿en qué ranuras van normalmente?', o: ['A1 y A2', 'A2 y B2', 'B1 y B2', 'Da igual'], a: 1, x: 'A2 y B2: un módulo por canal.' },
@@ -1252,7 +1254,7 @@ HW.lessons.push(
   { c: { h: 'Garantía y listas de calidad', term: 'Warranty · PSU tier lists', q: 'Una fuente buena tiene 7-12 años de garantía. Las listas de calidad (por ejemplo, la "PSU Tier List" de SPL y las reseñas de Cybenetics y HWBusters) clasifican cada modelo concreto.', a: 'La garantía del instalador: si da 10 años, se fía de su trabajo.', e: 'Corsair RMx, Seasonic Focus, be quiet! Pure Power 12 M, MSI MAG A850GL… (cada serie tiene versiones; mira el modelo exacto en una lista).', t: 'La marca no garantiza nada: la misma marca vende series excelentes y series malas.' } },
   { warn: 'Una fuente genérica barata es peligrosa: potencia real menor, rizado alto (degrada componentes), protecciones de papel y, si falla, puede llevarse por delante la placa, la gráfica o el SSD.' },
   { h: 'Las fuentes de los PC de tienda' },
-  { p: 'Muchos PC montados ahorran en la fuente: 450-550 W de gama de entrada, a veces sin certificación o con 80 Plus "blanco". Para tu GTX 1660 SUPER (125 W) basta. Para una gráfica de 250 W o más, probablemente no.' },
+  { p: 'Muchos PC montados ahorran en la fuente: 450-550 W de gama de entrada, a veces sin certificación o con 80 Plus "blanco". La tuya ya mueve una RTX 3060 (170 W, un 8 pines), así que una RX 9060 XT 16GB (≈160 W) le vale. Para una gráfica de 250 W o más, probablemente no: mira la pegatina.' },
   { mine: 'Cómo ver tu fuente: apaga, desenchufa, abre el lateral de la caja (normalmente la tapa izquierda, mirando el PC de frente) y lee la pegatina de la fuente: marca, modelo, vatios y amperios en +12V. Busca el modelo exacto en una lista de calidad. Antes de comprar gráfica, haz esto.' }
 ], quiz: [
   { q: 'Al elegir fuente, ¿qué se mira?', o: ['Los voltios', 'Los vatios (y los amperios en 12 V)', 'El color', 'El número de ventiladores'], a: 1, x: 'Las tensiones son fijas; lo que varía es la potencia.' },
@@ -1364,16 +1366,22 @@ HW.lessons.push(
     '<b>Revisa los conectores</b>: ¿cuántos cables PCIe 6+2 tiene tu fuente? Muchas de PC de tienda traen solo uno.',
     '<b>Mide la caja</b>: espacio para la gráfica (mm) y si tiene frontal que respire.',
     '<b>Gráfica nueva</b>: es la mejora que más FPS da. Para tu i5-12400F, algo entre RTX 5060 Ti 16GB / RX 9060 XT 16GB y RTX 5070 / RX 9070 queda equilibrado.',
-    '<b>RAM en doble canal</b>: si tienes 1 × 16 GB, añade otro módulo igual (DDR4, misma velocidad). 32 GB en doble canal.',
+    '<b>RAM en doble canal</b>: si tienes 1 × 16 GB, añade otro módulo igual (DDR4, misma velocidad). Tú ya tienes 2 × 8 GB en doble canal: no hace falta tocarla.',
     '<b>Almacenamiento</b>: un NVMe de 1-2 TB para juegos. No da FPS, da espacio y cargas.',
     '<b>Procesador</b>: más adelante. En LGA1700 el techo razonable es un i5-14600K/i7-14700K (comprueba chipset, VRM y BIOS 0x12B) o un i5-13400F/14400F sin cambiar nada más.'
   ] },
   { dyn: 'upgradeTable' },
   { warn: 'El SSD no da FPS. La placa no da FPS. Más RAM de la que usas no da FPS. El RGB tampoco.' },
   { c: { h: 'FPS por euro', term: 'Cost per frame', q: 'Euros que cuesta cada FPS que ganas. Divide el precio de la mejora entre los FPS que suma.', a: 'Lo que pagas por cada plato extra por minuto.', e: 'Si una gráfica de 500 € te lleva de 50 a 120 FPS, pagas ≈7 € por FPS.', t: 'Haz la cuenta con los 1 % lows también.' } },
-  { mine: 'Propuesta para tu PC (orientativa): fuente de 650-750 W Gold ATX 3.1 de una serie bien valorada (si la tuya no vale) + RX 9060 XT 16GB o RTX 5060 Ti 16GB para 1080p alto, o RX 9070 / RTX 5070 si quieres 1440p. Y si tienes un solo módulo, otro de 16 GB DDR4.' }
+  { mine: 'Propuesta para tu PC (orientativa): una RX 9060 XT 16GB de 2 ventiladores en Black Friday (≈380 €, nunca más de ≈450 €) y vender la 3060 (≈150-180 €): ≈200-230 € netos por ≈50-60 % más FPS y 16 GB. Sin tocar fuente ni RAM. Si cabe una gráfica de 280-320 mm en tu caja de 18 L, la RX 9070 (≈580 €) da casi el doble que la 3060, pero pide una fuente de 650 W Gold (≈70 €). Gastar 0 € y usar DLSS en Calidad también es válido.' },
+  { h: 'Cambiar de NVIDIA a AMD (o al revés)' },
+  { ol: [ 'Descarga el driver nuevo y DDU (Display Driver Uninstaller) antes de apagar.', 'Reinicia en modo seguro y pasa DDU para borrar el driver viejo.', 'Apaga, cambia la gráfica y conecta el monitor a la gráfica (no a la placa).', 'Instala el driver nuevo (AMD Adrenalin o NVIDIA App).', 'Activa FreeSync/G-Sync y pon el monitor a su frecuencia máxima en Windows (Configuración → Pantalla → Pantalla avanzada).' ] },
+  { h: 'Trampas de tienda en Black Friday' },
+  { c: { h: 'Precio tachado inflado', term: 'Fake discount', q: 'Muchas tiendas suben el precio semanas antes para que el «-30 %» parezca grande.', a: 'El menú del día que sube a 20 € el lunes para venderlo «rebajado» a 15 € el viernes.', e: 'Una RX 9060 XT 16GB «rebajada» a ≈800 € cuando en otras tiendas está a ≈400 €: no es una oferta, es el doble de su precio.', t: '«Mínimo histórico» suele ser solo de esa tienda. Compara el mismo modelo en 3-4 tiendas y mira el historial (Keepa en Amazon).' } },
+  { tip: 'Fíjate en el modelo exacto: misma gráfica, distinta VRAM (8 GB frente a 16 GB) puede costar casi lo mismo y durar mucho menos. Y desconfía de vendedores externos dentro de una tienda grande.' }
 ], quiz: [
-  { q: 'En tu PC, ¿qué mejora da más FPS?', o: ['SSD PCIe 5.0', 'Gráfica nueva', 'Placa nueva', 'Más RGB'], a: 1, x: 'Tu límite es la GTX 1660 SUPER.' },
+  { q: 'En tu PC, ¿qué mejora da más FPS?', o: ['SSD PCIe 5.0', 'Gráfica nueva', 'Placa nueva', 'Más RGB'], a: 1, x: 'Tu límite es la RTX 3060, sobre todo a 1440p.' },
+  { q: 'Ves tu gráfica objetivo a 800 € cuando suele costar 400 €. ¿Qué haces?', o: ['La compro: es Black Friday', 'Comparo en otras tiendas o espero', 'Compro dos', 'Cambio la fuente'], a: 1, x: 'El doble del precio normal no es oferta. Compara o espera.' },
   { q: '¿Qué tienes que revisar antes de comprar gráfica?', o: ['El ratón', 'La fuente, sus conectores y el tamaño de la caja', 'La versión de Windows', 'El teclado'], a: 1, x: 'Fuente, conectores y espacio.' },
   { q: 'Tienes 1 × 16 GB. Mejora barata:', o: ['Cambiar a DDR5', 'Añadir otro módulo igual para doble canal', 'Quitar el módulo', 'Comprar 128 GB'], a: 1, x: 'Encimera completa.' }
 ] },
@@ -1424,6 +1432,34 @@ HW.lessons.push(
   { q: 'RTX 5070 Laptop frente a RTX 5070 de sobremesa:', o: ['Iguales', 'La de portátil rinde bastante menos', 'La de portátil rinde más', 'Depende del color'], a: 1, x: 'Mucho menos consumo y otro chip.' },
   { q: '¿Qué dato mirar en la gráfica de un portátil?', o: ['El TGP', 'El color', 'El número de puertos USB', 'El peso del cargador'], a: 0, x: 'El TGP decide cuánto rinde.' },
   { q: 'i7-1255U frente a i5-12500H en multinúcleo:', o: ['Gana el i7 por ser i7', 'Gana el i5-H por tener más núcleos P y más consumo', 'Empate', 'Ninguno funciona'], a: 1, x: 'El sufijo pesa muchísimo en portátiles.' }
+] }
+,
+{ id: 's', lvl: 'Básico', t: 'El monitor: resolución, Hz y cable', sum: 'Resolución, hercios, FPS, FreeSync/G-Sync, tiempo de respuesta y DisplayPort frente a HDMI.', body: [
+  { p: 'El monitor es el <b>camarero</b>: saca a la sala los platos (fotogramas) que preparan los pinches. Si el camarero es lento, da igual lo rápido que cocinéis.' },
+  { c: { h: 'Resolución', term: '1080p · 1440p · 4K', q: 'Cuántos píxeles tiene la pantalla. 1440p tiene ≈1,8 veces los píxeles de 1080p; 4K, 4 veces.', a: 'El tamaño de cada plato: más píxeles, más trabajo para los pinches.', e: 'La misma gráfica que da 120 FPS a 1080p puede dar ≈80 a 1440p y ≈45 a 4K (aprox.).', t: 'Subir de resolución carga la GPU, no la CPU.' } },
+  { c: { h: 'Hercios', term: 'Refresh rate (Hz)', q: 'Cuántas veces por segundo el monitor dibuja una imagen nueva.', a: 'Cuántos viajes por segundo hace el camarero a la sala.', e: 'Un monitor de 280 Hz puede mostrar hasta 280 FPS. Si la gráfica da 90, verás 90.', t: 'Los Hz no dan FPS: solo dejan ver los que ya da la gráfica.' } },
+  { c: { h: 'FreeSync y G-Sync', term: 'VRR (Variable Refresh Rate)', q: 'El monitor espera a cada fotograma en lugar de ir a ritmo fijo. Quita el desgarro (tearing) sin el retraso del V-Sync.', a: 'El camarero sale cuando el plato está listo, no a golpe de reloj.', e: 'Casi todos los monitores gaming actuales son FreeSync y «G-Sync Compatible»: valen para AMD y para NVIDIA.', t: 'Hay que activarlo en el driver (Adrenalin o Panel de control de NVIDIA) y a veces también en el menú del monitor.' } },
+  { c: { h: 'Tiempo de respuesta', term: 'GtG · MPRT', q: 'Lo que tarda un píxel en cambiar de color. Influye en el emborronado.', a: 'Lo que tarda el camarero en soltar un plato y coger el siguiente.', e: 'Los «1 ms» de la caja son en el modo más agresivo, que puede crear halos (overshoot).', t: 'Mira análisis (Rtings, Monitors Unboxed), no la cifra de la caja.' } },
+  { c: { h: 'Cable de imagen', term: 'DisplayPort · HDMI', q: 'DisplayPort 1.4 (con DSC) y HDMI 2.1 llegan a 1440p a 240 Hz o más. HDMI 2.0 se queda en 1440p a 144 Hz.', a: 'La ventanilla de la cocina: si es estrecha, no pasan todos los platos.', e: 'Un monitor 1440p 280 Hz necesita DisplayPort (o HDMI 2.1) para llegar a 280 Hz.', t: 'Conecta el cable a la gráfica, no a la placa. Y comprueba en Windows que está a la frecuencia máxima: a veces viene a 60 Hz.' } },
+  { table: { head: ['Monitor', 'FPS para aprovecharlo', 'Gráfica orientativa'], rows: [ ['1080p 144 Hz', '≈100-144', 'RTX 3060 · RX 9060 XT'], ['1440p 165-180 Hz', '≈90-165', 'RX 9060 XT 16GB · RTX 5060 Ti 16GB · RX 9070'], ['1440p 240-280 Hz', '≈120-280 (shooters)', 'RX 9070 o más; en shooters ligeros, menos'], ['4K 144 Hz', '≈60-144', 'RTX 5070 Ti · RX 9070 XT o más'] ] } },
+  { mine: 'Tu HP OMEN 27qs G2 es 1440p a 280 Hz por DisplayPort: un camarero rapidísimo. Tu RTX 3060 no llega a 280 FPS salvo en juegos ligeros, así que activa G-Sync/FreeSync y no te obsesiones con los 280: con 80-140 FPS ya va muy fluido. Comprueba en Windows → Pantalla avanzada que está a 280 Hz.' }
+], quiz: [
+  { q: '¿Un monitor de 280 Hz te da más FPS?', o: ['Sí, siempre', 'No: deja ver hasta 280 FPS si la gráfica los da', 'Solo con HDMI', 'Solo a 4K'], a: 1, x: 'Los Hz son el camarero, los FPS los preparan los pinches.' },
+  { q: 'Para 1440p a 280 Hz, ¿qué cable?', o: ['HDMI 1.4', 'DisplayPort (o HDMI 2.1)', 'VGA', 'USB 2.0'], a: 1, x: 'La ventanilla tiene que ser ancha.' },
+  { q: '¿Para qué sirve FreeSync / G-Sync?', o: ['Para dar más FPS', 'Para que el monitor espere a cada fotograma y no haya desgarro', 'Para cargar el móvil', 'Para subir el brillo'], a: 1, x: 'El camarero sale cuando el plato está listo.' }
+] },
+{ id: 't', lvl: 'Básico', t: 'Red de casa: cable, Wi-Fi y PLC', sum: 'Por qué el cable gana para jugar, qué es un PLC, qué cable Ethernet comprar y sus trampas.', body: [
+  { p: 'Para jugar online no manda la velocidad máxima, manda la <b>latencia estable</b> (ping sin picos). El cable gana al Wi-Fi porque no le afectan paredes ni vecinos.' },
+  { c: { h: 'Latencia y jitter', term: 'Ping · Jitter · Packet loss', q: 'Ping: lo que tarda un paquete en ir y volver (ms). Jitter: cuánto varía. Pérdida: paquetes que no llegan.', a: 'Lo que tarda el pedido en llegar del proveedor, y si a veces llega tarde o no llega.', e: '20 ms estables juegan mejor que 10 ms con picos de 150.', t: 'Un test de velocidad de 600 Mbps no dice nada del jitter: mira la latencia «con carga».' } },
+  { c: { h: 'PLC', term: 'Powerline (HomePlug AV2)', q: 'Dos adaptadores que llevan internet por los cables de la luz: uno junto al router, otro junto al PC, cada uno con su cable Ethernet.', a: 'Usar el montacargas que ya tiene el edificio (la instalación eléctrica) para subir los pedidos.', e: 'Un kit AV1000 «Gigabit» suele dar ≈150-400 Mbps reales, con latencia mucho más estable que un Wi-Fi malo.', t: 'El número de la caja (1000, 2000) es teórico: depende de tu instalación eléctrica.' } },
+  { ul: [ 'Enchúfalo <b>directo a la pared</b>, nunca a una regleta (los filtros de la regleta destrozan la señal).', 'Elige uno con <b>enchufe pasante</b> para no perder el enchufe.', 'Los dos adaptadores deben estar en el mismo circuito eléctrico de la casa (mismo cuadro).', 'Empareja con el botón «Pair» y espera a que la luz quede fija.' ] },
+  { c: { h: 'Cable Ethernet', term: 'Cat 5e · Cat 6 · Cat 6A', q: 'Cat 5e ya llega a 1 Gbps; Cat 6 y 6A aguantan más velocidad y distancia.', a: 'El tubo del montacargas a la cocina: para 1 Gbps vale el normal.', e: 'Para menos de 1-2 m con un PLC Gigabit, el Cat 5e que trae la caja basta. Si necesitas uno más largo, Cat 6 de cobre.', t: 'Evita los «CCA» (aluminio cobreado) y los «Cat 7 / Cat 8» baratos: suelen ser marketing y no aportan nada en casa.' } },
+  { table: { head: ['Opción', 'Velocidad real aprox.', 'Latencia', 'Cuándo'], rows: [ ['Cable directo al router', 'La de tu fibra', 'La mejor', 'Si puedes pasar el cable'], ['PLC Gigabit', '≈150-400 Mbps', 'Estable', 'Router en otra habitación'], ['Wi-Fi 6/7 cerca', '≈300-900 Mbps', 'Buena', 'Misma habitación o una pared'], ['Wi-Fi lejos', 'Muy variable', 'Picos', 'Solo si no hay otra'] ] } },
+  { mine: 'Tu PC va con un PLC TP-Link TL-PA7017P KIT (AV1000 Gigabit, enchufe pasante) y el cable Cat 5e de la caja, porque el PC está a menos de 1 m del adaptador. Enchufa ambos directos a la pared. Para comprobarlo: en Windows, el adaptador Ethernet debe marcar 1 Gbps, y un test de latencia con carga no debe tener picos grandes.' }
+], quiz: [
+  { q: 'Para jugar online, ¿qué importa más?', o: ['La velocidad máxima', 'La latencia estable', 'El color del cable', 'El número de antenas'], a: 1, x: 'Ping estable sin picos.' },
+  { q: '¿Dónde se enchufa un PLC?', o: ['En una regleta', 'Directo a la pared', 'En un alargador con filtro', 'En el USB'], a: 1, x: 'La regleta filtra la señal.' },
+  { q: 'Para 1 Gbps a 1 m, ¿qué cable basta?', o: ['Cat 8 obligatorio', 'Cat 5e', 'Cat 3', 'Ninguno funciona'], a: 1, x: 'Cat 5e ya llega a 1 Gbps.' }
 ] }
 );
 
@@ -1648,6 +1684,16 @@ HW.glossary = [
   ['VRM', 'Convierte 12 V en ≈1,2 V para la CPU.', 'Camareros que bajan la presión del agua.', 'f'],
   ['X3D', 'Ryzen con 3D V-Cache.', 'Jefe con bandeja gigante.', 'c'],
   ['XeSS', 'Escalado de Intel (mejor con XMX).', 'Máquina de agrandar platos de Intel.', 'e'],
+  ['Cat 5e / Cat 6', 'Categorías de cable Ethernet; Cat 5e ya llega a 1 Gbps.', 'El tubo del montacargas.', 't'],
+  ['CCA', 'Cable de aluminio cobreado: más barato y peor que el de cobre. Evítalo.', 'Un tubo de imitación.', 't'],
+  ['DDU', 'Display Driver Uninstaller: borra por completo el driver de la gráfica antes de cambiarla.', 'Limpiar la mesa de los pinches antes de que lleguen los nuevos.', 'o'],
+  ['DisplayPort', 'Cable de imagen para PC; el 1.4 con DSC llega a 1440p a 240 Hz o más.', 'Una ventanilla ancha.', 's'],
+  ['FreeSync / G-Sync', 'Refresco variable: el monitor espera a cada fotograma y no hay desgarro.', 'El camarero sale cuando el plato está listo.', 's'],
+  ['Hz (hercios)', 'Imágenes por segundo que puede mostrar el monitor.', 'Viajes por segundo del camarero.', 's'],
+  ['Jitter', 'Variación del ping; los picos se notan como tirones online.', 'Pedidos que a veces llegan tarde.', 't'],
+  ['Ping', 'Lo que tarda un paquete en ir al servidor y volver, en ms.', 'Lo que tarda el pedido del proveedor.', 't'],
+  ['PLC (Powerline)', 'Adaptadores que llevan internet por los cables de la luz.', 'El montacargas que ya tiene el edificio.', 't'],
+  ['Tearing (desgarro)', 'La imagen se ve partida en dos cuando monitor y gráfica no van sincronizados.', 'Medio plato de una comanda y medio de otra.', 's'],
   ['XMP', 'Perfil de Intel para la velocidad de la RAM.', 'Desplegar la encimera (Intel).', 'g'],
   ['XMX', 'Núcleos matriciales (IA) de Intel Arc.', 'Pinches de IA de Intel.', 'e'],
   ['Zen', 'Arquitectura de CPU de AMD (Zen 1 a Zen 5; Zen 6 en camino).', 'La escuela de chefs AMD.', 'b'],
@@ -2176,6 +2222,8 @@ window.HW = window.HW || {};
     HW.storageOk = true;
   } catch (e) { HW.storageOk = false; }
   if (!HW.S.myPc) HW.S.myPc = Object.assign({}, HW.myPcDefault);
+  /* Datos antiguos (suponían una GTX 1660 SUPER): pasan a los datos reales y conservan lo que tú rellenaste. */
+  if (!HW.S.myPc.v || HW.S.myPc.v < HW.myPcDefault.v) { var old = HW.S.myPc; HW.S.myPc = Object.assign({}, HW.myPcDefault, { chip: old.chip || '', psuW: old.psuW || 0, caseLen: old.caseLen || 0 }); try { localStorage.setItem(KEY, JSON.stringify(HW.S)); } catch (e) {} }
   HW.save = function () { try { localStorage.setItem(KEY, JSON.stringify(HW.S)); } catch (e) {} };
   HW.exportCode = function () { return 'CPC1.' + btoa(unescape(encodeURIComponent(JSON.stringify(HW.S)))); };
   HW.importCode = function (code) {
@@ -2217,7 +2265,7 @@ window.HW = window.HW || {};
   HW.TABS = [['aprender', 'Aprender'], ['catalogo', 'Catálogo'], ['comparar', 'Comparar'], ['nombres', 'Nombres'], ['herramientas', 'Herram.'], ['practicar', 'Practicar'], ['glosario', 'Glosario']];
   HW.route = function () {
     var hsh = (location.hash || '').replace('#', '') || 'aprender', view = hsh, arg = null;
-    var m = hsh.match(/^leccion-([a-r])$/); if (m) { view = 'leccion'; arg = m[1]; }
+    var m = hsh.match(/^leccion-([a-z])$/); if (m) { view = 'leccion'; arg = m[1]; }
     if (!HW.V[view]) view = 'aprender';
     var tab = view === 'leccion' ? 'aprender' : view;
     document.querySelectorAll('nav.tabs button').forEach(function (b) { if (b.dataset.tab === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
@@ -2334,7 +2382,7 @@ window.HW = window.HW || {};
         '<div class="table-wrap"><table><thead><tr><th>Memoria</th><th class="num">ns</th></tr></thead><tbody>' + [['DDR4-2666 CL19', 2666, 19], ['DDR4-3200 CL16', 3200, 16], ['DDR4-3600 CL18', 3600, 18], ['DDR5-4800 CL40', 4800, 40], ['DDR5-6000 CL30', 6000, 30], ['DDR5-6000 CL36', 6000, 36], ['DDR5-7200 CL34', 7200, 34]].map(function (r) { return '<tr><td>' + r[0] + '</td><td class="num">' + E.fmt(r[2] * 2000 / r[1], 1) + '</td></tr>'; }).join('') + '</tbody></table></div></div>';
     },
     psuTable: function () {
-      var names = ['GTX 1660 SUPER', 'RTX 5050', 'RTX 5060', 'RTX 5060 Ti 16GB', 'RTX 5070', 'RTX 5070 Ti', 'RTX 5080', 'RTX 5090', 'Arc B580', 'RX 9060 XT 16GB', 'RX 9070 GRE', 'RX 9070', 'RX 9070 XT', 'RX 7900 XTX', 'RTX 4090'];
+      var names = ['RTX 3060', 'RTX 5050', 'RTX 5060', 'RTX 5060 Ti 16GB', 'RTX 5070', 'RTX 5070 Ti', 'RTX 5080', 'RTX 5090', 'Arc B580', 'RX 9060 XT 16GB', 'RX 9070 GRE', 'RX 9070', 'RX 9070 XT', 'RX 7900 XTX', 'RTX 4090'];
       return '<div class="table-wrap"><table><thead><tr><th>Gráfica</th><th class="num">Consumo</th><th class="num">Fabricante</th><th class="num">Yo pondría</th><th>Conector</th></tr></thead><tbody>' + names.map(function (n) { var g = E.findGpu(n); if (!g) return ''; var mine = E.ceil50((150 + g.tbp + 100) * 1.3); mine = Math.max(mine, g.psu); return '<tr><td>' + h(g.n) + (g.mine ? ' <span class="pill me">mi PC</span>' : '') + '</td><td class="num">' + g.tbp + ' W</td><td class="num">' + g.psu + ' W</td><td class="num"><b>' + mine + ' W</b></td><td class="small">' + h(g.conn) + '</td></tr>'; }).join('') + '</tbody></table></div>';
     },
     spots: function () { return '<div class="table-wrap"><table><thead><tr><th class="num">N.º</th><th>Conector</th><th>Para qué</th></tr></thead><tbody>' + HW.boardSpots.map(function (s) { return '<tr><td class="num"><b>' + s.n + '</b></td><td><b>' + h(s.k) + '</b></td><td class="small">' + h(s.d) + '</td></tr>'; }).join('') + '</tbody></table></div>'; },
@@ -2372,7 +2420,7 @@ window.HW = window.HW || {};
     var lv = ['Básico', 'Intermedio', 'Avanzado', 'Experto'];
     return '<section class="stack"><div class="section-title"><h1>Aprender</h1><span class="pill">' + done + ' de ' + total + ' lecciones</span></div>' +
       '<div class="progress" aria-label="Progreso"><i style="width:' + (done / total * 100) + '%"></i></div>' +
-      '<div class="box mine"><h4>Tu PC, el caso práctico de toda la app</h4><p class="small">' + h(pc.cpu) + ' · ' + h(pc.gpu) + ' (6 GB) · ' + h(pc.ram) + ' · ' + h(pc.storage) + ' · ' + h(pc.os) + '</p><p class="small">Placa: ' + (pc.chip ? 'chipset ' + h(pc.chip) : 'por averiguar') + ' · Fuente: ' + (pc.psuW ? pc.psuW + ' W' : 'por averiguar') + '</p><div class="row"><button class="btn sm" data-act="goTool" data-t="mipc">Completar datos de mi PC</button></div></div>' +
+      '<div class="box mine"><h4>Tu PC, el caso práctico de toda la app</h4><p class="small">' + h(pc.model || '') + ': ' + h(pc.cpu) + ' · ' + h(pc.gpu) + ' (' + (pc.vram || 12) + ' GB) · ' + h(pc.ram) + ' · ' + h(pc.storage) + ' · ' + h(pc.os) + '</p>' + (pc.monitor ? '<p class="small">Monitor: ' + h(pc.monitor) + '</p>' : '') + '<p class="small">Placa: ' + (pc.chip ? 'chipset ' + h(pc.chip) : 'por averiguar') + ' · Fuente: ' + (pc.psuW ? pc.psuW + ' W' : 'por averiguar') + '</p><div class="row"><button class="btn sm" data-act="goTool" data-t="mipc">Completar datos de mi PC</button></div></div>' +
       '<div class="chips" role="group" aria-label="Nivel">' + ['', 'Básico', 'Intermedio', 'Avanzado', 'Experto'].map(function (l) { return '<button class="chip" data-act="lvl" data-l="' + l + '" aria-pressed="' + (HW.ui.lvl === l) + '">' + (l || 'Todas') + '</button>'; }).join('') + '</div>' +
       lv.filter(function (l) { return !HW.ui.lvl || HW.ui.lvl === l; }).map(function (l) {
         var ls = HW.lessons.filter(function (x) { return x.lvl === l; });
@@ -2644,7 +2692,7 @@ window.HW = window.HW || {};
     if (T === 'compat') { var c = st.compat; c.cpu = v('cCpu'); c.board = v('cBoard'); c.ram = v('cRam'); c.gpu = v('cGpu'); c.psu = v('cPsu'); c.cas = v('cCase'); c.cooler = v('cCool'); c.st = HW.storages.filter(function (s) { var n = document.getElementById('cSt-' + s.id); return n && +n.value > 0; }).reduce(function (acc, s) { for (var i = 0; i < +document.getElementById('cSt-' + s.id).value; i++) acc.push(s.id); return acc; }, []); }
     if (T === 'swap') { var s = st.swap; s.what = v('sWhat') || s.what; if (v('sCpu')) s.cpu = v('sCpu'); if (v('sGpu')) s.gpu = v('sGpu'); if (v('sDdr')) s.ddr = v('sDdr'); if (v('sRes')) s.res = v('sRes'); }
     if (T === 'bott') { st.bott.cpu = v('bCpu'); st.bott.gpu = v('bGpu'); st.bott.res = v('bRes'); }
-    if (T === 'mipc') { var p = HW.S.myPc; p.chip = v('mChip') || ''; p.psuW = +v('mPsu') || 0; p.ramMods = +v('mMods') || 0; p.caseLen = +v('mLen') || 0; p.ram = '16 GB DDR4 (' + (p.ramMods === 1 ? '1 módulo: un canal' : p.ramMods === 2 ? '2 módulos: doble canal' : 'módulos: no lo sé') + ')'; HW.save(); }
+    if (T === 'mipc') { var p = HW.S.myPc; p.chip = v('mChip') || ''; p.psuW = +v('mPsu') || 0; p.ramMods = +v('mMods') || 0; p.caseLen = +v('mLen') || 0; p.ram = '16 GB DDR4-3200 (' + (p.ramMods === 1 ? '1 módulo: un canal' : p.ramMods === 2 ? '2 × 8 GB: doble canal' : 'módulos: no lo sé') + ')'; HW.save(); }
   }
 
   var VIEWS = {};
@@ -2745,7 +2793,7 @@ window.HW = window.HW || {};
     var S = st.swap, R = swapAnswer();
     var vt = { ok: ['ok', 'Sí, se puede'], warn: ['warn', 'Se puede, con condiciones'], bad: ['bad', 'No, o no sin cambiar más cosas'] }[R.verdict];
     return '<div class="card"><h2>¿Puedo cambiar X por Y?</h2><p class="small muted">Parto de tu PC (' + h(HW.S.myPc.cpu) + ', ' + h(HW.S.myPc.gpu) + ', ' + h(HW.S.myPc.ddr) + (HW.S.myPc.chip ? ', chipset ' + h(HW.S.myPc.chip) : '') + (HW.S.myPc.psuW ? ', fuente ' + HW.S.myPc.psuW + ' W' : '') + '). Cambia esos datos en "Mi PC".</p>' +
-      '<div class="chips">' + [['Q1', '¿Un i7-14700K en mi placa?'], ['Q2', '¿DDR5 en mi placa DDR4?'], ['Q3', '¿Una RTX 5070 en mi PC?'], ['Q4', '¿Un Ryzen 7 9800X3D en mi placa?'], ['Q5', '¿Un i5-14400F en mi placa?']].map(function (q) { return '<button class="chip" data-act="swapQ" data-q="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="chips">' + [['Q1', '¿Un i7-14700K en mi placa?'], ['Q2', '¿DDR5 en mi placa DDR4?'], ['Q3', '¿Una RTX 5070 en mi PC?'], ['Q6', '¿Una RX 9060 XT 16GB en mi PC?'], ['Q7', '¿Una RX 9070 en mi PC?'], ['Q4', '¿Un Ryzen 7 9800X3D en mi placa?'], ['Q5', '¿Un i5-14400F en mi placa?']].map(function (q) { return '<button class="chip" data-act="swapQ" data-q="' + q[0] + '">' + q[1] + '</button>'; }).join('') + '</div>' +
       '<label class="field">Quiero cambiar' + sel('sWhat', [['cpu', 'El procesador'], ['gpu', 'La gráfica'], ['ram', 'La RAM']].map(function (o) { return '<option value="' + o[0] + '"' + (S.what === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('')) + '</label>' +
       (S.what === 'cpu' ? '<label class="field">Por' + sel('sCpu', HW.cpuOptions(S.cpu)) + '</label>' : '') +
       (S.what === 'gpu' ? '<label class="field">Por' + sel('sGpu', HW.gpuOptions(S.gpu)) + '</label><label class="field">Resolución' + sel('sRes', [['1080', '1080p'], ['1440', '1440p'], ['4k', '4K']].map(function (o) { return '<option value="' + o[0] + '"' + (S.res === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('')) + '</label>' : '') +
@@ -2759,6 +2807,8 @@ window.HW = window.HW || {};
     if (q === 'Q3') { S.what = 'gpu'; S.gpu = 'gpu-rtx-5070'; }
     if (q === 'Q4') { S.what = 'cpu'; S.cpu = 'cpu-ryzen-7-9800x3d'; }
     if (q === 'Q5') { S.what = 'cpu'; S.cpu = 'cpu-core-i5-14400f'; }
+    if (q === 'Q6') { S.what = 'gpu'; S.gpu = 'gpu-rx-9060-xt-16gb'; }
+    if (q === 'Q7') { S.what = 'gpu'; S.gpu = 'gpu-rx-9070'; }
     HW.rerender();
   };
 
@@ -2852,9 +2902,12 @@ window.HW = window.HW || {};
   /* ---------- Mi PC y progreso ---------- */
   VIEWS.mipc = function () {
     var p = HW.S.myPc, chips = HW.chipsets.filter(function (c) { return c.s === HW.myCpu().socket; });
-    return '<div class="card"><h2>Mi PC</h2><p class="small">' + h(p.cpu) + ' · ' + h(p.gpu) + ' · 16 GB DDR4 · ' + h(p.storage) + ' · ' + h(p.os) + '</p>' +
+    var pl = HW.myPlan, bfNow = HW.E.gpuBf(HW.E.findGpu(pl.gpu));
+    return '<div class="card"><h2>Mi PC</h2><p class="small"><b>' + h(p.model || '') + '</b> · BIOS ' + h(p.bios || '?') + '</p>' +
+      '<div class="table-wrap"><table><tbody>' + [['Jefe (CPU)', p.cpu + ' · 6 núcleos / 12 hilos'], ['Pinches (GPU)', p.gpu + ' · ' + (p.vram || 12) + ' GB'], ['Encimera (RAM)', p.ram + ' · máximo ' + (p.ramMax || 64) + ' GB (2 × 32)'], ['Despensa', p.storage], ['Camarero (monitor)', p.monitor || '?'], ['Red', p.net || '?'], ['Sistema', p.os]].map(function (r) { return '<tr><td class="small muted">' + r[0] + '</td><td class="small">' + h(r[1]) + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+      '<div class="box mine"><h4>Plan de mejora (orientativo)</h4><ol class="small"><li>Comprar una <b>' + h(pl.gpu) + '</b> de 2 ventiladores en Black Friday (' + HW.BF_DATE + '): referencia ≈' + (bfNow ? bfNow.bf : pl.bf) + ' €, <b>no pagar más de ≈' + pl.max + ' €</b>. ≈50-60 % más que tu 3060 y 16 GB.</li><li>Vender la 3060 (≈' + pl.sell + ' €): coste neto ≈200-230 €.</li><li>Cambio de drivers: DDU en modo seguro para quitar NVIDIA → AMD Adrenalin → activar FreeSync → DisplayPort a 280 Hz.</li><li>Sin cambiar fuente ni RAM: tu fuente ya mueve una gráfica de 170 W con un 8 pines.</li></ol><p class="small">Alternativa: <b>' + h(pl.alt) + '</b> (≈2 × tu 3060) solo si caben ' + h(pl.altLen) + ' en la caja, y con fuente ' + h(pl.altPsu) + '. Opción 0 €: seguir con la 3060 y DLSS en Calidad.</p><p class="small muted">Evita las de 8 GB: serían menos mesa que la que ya tienes.</p></div>' +
       '<label class="field">Chipset de la placa (msinfo32 o CPU-Z → Mainboard)<select id="mChip" data-chg="toolChg"><option value="">No lo sé todavía</option>' + chips.map(function (c) { return '<option' + (p.chip === c.id ? ' selected' : '') + '>' + c.id + '</option>'; }).join('') + '</select></label>' +
-      '<label class="field">Módulos de RAM (Administrador de tareas → Memoria → Ranuras usadas)<select id="mMods" data-chg="toolChg">' + [[0, 'No lo sé'], [1, '1 módulo (1 × 16 GB)'], [2, '2 módulos (2 × 8 GB)']].map(function (o) { return '<option value="' + o[0] + '"' + (p.ramMods === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
+      '<label class="field">Módulos de RAM (Administrador de tareas → Memoria → Ranuras usadas)<select id="mMods" data-chg="toolChg">' + [[0, 'No lo sé'], [1, '1 módulo (1 × 16 GB)'], [2, '2 módulos (2 × 8 GB) · el tuyo']].map(function (o) { return '<option value="' + o[0] + '"' + (p.ramMods === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
       '<label class="field">Fuente: vatios de la pegatina (0 = no lo sé)<input type="number" id="mPsu" inputmode="numeric" value="' + (p.psuW || 0) + '" data-chg="toolChg"></label>' +
       '<label class="field">Caja: longitud máxima de gráfica en mm (0 = no lo sé)<input type="number" id="mLen" inputmode="numeric" value="' + (p.caseLen || 0) + '" data-chg="toolChg"></label>' +
       (p.ramMods === 1 ? '<div class="box tip"><p>Tienes un solo módulo: añadir otro igual te da doble canal (encimera completa) y 32 GB.</p></div>' : '') +

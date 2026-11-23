@@ -4,10 +4,10 @@ App móvil (HTML + JS en un solo fichero, sin conexión) para aprender hardware 
 
 **Abrir:** `dist/la-cocina-del-pc.html` (en el móvil o en el PC; no necesita servidor ni conexión, salvo para las fuentes tipográficas, que tienen alternativa del sistema).
 
-Datos verificados a **11/11/2026**. Precios orientativos de 11/2026.
+Datos verificados a **11/11/2026**; «Mi PC» actualizado el 23/11/2026 con los datos reales (Acer Nitro N50-640, i5-12400F, RTX 3060 12 GB, 2 × 8 GB DDR4-3200, NVMe 1 TB, monitor 1440p 280 Hz) y el plan de mejora de Black Friday. Precios orientativos de 11/2026.
 
 ## Pestañas
-1. **Aprender**: 18 lecciones (a–r) en 4 niveles, con concepto → analogía → ejemplo real → trampa, dibujos SVG, «Con tu PC» y test final.
+1. **Aprender**: 20 lecciones (a–t: incluye monitor y red de casa) en 4 niveles, con concepto → analogía → ejemplo real → trampa, dibujos SVG, «Con tu PC» y test final.
 2. **Catálogo**: procesadores AMD (Ryzen 1000 → 9950X3D2 y portátiles) e Intel (8.ª gen → Core Ultra 200S Plus, Panther Lake) y gráficas NVIDIA (GTX 10 → RTX 50), AMD (RX 5000 → RX 9000) e Intel Arc (A y B). Filtros, fichas, índices con su fuente y línea de tiempo.
 3. **Comparar**: dos procesadores o dos gráficas + un uso → fichas lado a lado, razonamiento generado por reglas, trampas, veredicto, «frase para decirlo» y modo práctica.
 4. **Nombres**: descodificador de modelos por partes y colores.

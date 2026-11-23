@@ -25,7 +25,7 @@ HW.fam({ brand: 'NVIDIA', y: 2016, arch: 'Pascal', node: 'TSMC 16 nm', rt: 0, ai
 ]),
 HW.fam({ brand: 'NVIDIA', y: 2019, arch: 'Turing (sin RT)', node: 'TSMC 12 nm', rt: 0, ai: 'No', pcie: '3.0', lanes: 16, up: 'Sin DLSS. FSR 1-3 y XeSS (modo genérico). FSR 3 Frame Generation funciona.', conf: 'rev' }, [
   { n: 'GTX 1660 Ti', code: 'TU116', vram: 6, vt: 'GDDR6', bus: 192, bw: 288, sh: 1536, tbp: 120, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 279, p: 12.5, riv: 'RX 5600 XT' },
-  { n: 'GTX 1660 SUPER', code: 'TU116', vram: 6, vt: 'GDDR6', bus: 192, bw: 336, sh: 1408, tbp: 125, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 229, p: 12, riv: 'RX 5500 XT 8GB', mine: true, note: 'Tu gráfica. Rinde casi como la 1660 Ti gracias a su memoria GDDR6 rápida. 6 GB se quedan cortos en juegos de 2024-2026.' },
+  { n: 'GTX 1660 SUPER', code: 'TU116', vram: 6, vt: 'GDDR6', bus: 192, bw: 336, sh: 1408, tbp: 125, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 229, p: 12, riv: 'RX 5500 XT 8GB', note: 'Rinde casi como la 1660 Ti gracias a su memoria GDDR6 rápida. 6 GB se quedan cortos en juegos de 2024-2026.' },
   { n: 'GTX 1660', code: 'TU116', vram: 6, vt: 'GDDR5', bus: 192, bw: 192, sh: 1408, tbp: 120, conn: '1 × 8 pines', psu: 450, len: 230, msrp: 219, p: 11, riv: 'RX 590' },
   { n: 'GTX 1650 SUPER', code: 'TU116', vram: 4, vt: 'GDDR6', bus: 128, bw: 192, sh: 1280, tbp: 100, conn: '1 × 6 pines', psu: 350, len: 200, msrp: 159, p: 9, riv: 'RX 5500 XT 4GB' },
   { n: 'GTX 1650', code: 'TU117', vram: 4, vt: 'GDDR5 / GDDR6', bus: 128, bw: 128, sh: 896, tbp: 75, conn: 'Ninguno (la mayoría)', psu: 300, len: 170, msrp: 149, p: 7, riv: 'RX 570' }
@@ -48,7 +48,7 @@ HW.fam({ brand: 'NVIDIA', y: 2020, arch: 'Ampere', node: 'Samsung 8 nm', rt: 2, 
   { n: 'RTX 3070 Ti', y: 2021, code: 'GA104', vram: 8, vt: 'GDDR6X', bus: 256, bw: 608, sh: 6144, tbp: 290, conn: '2 × 8 pines', psu: 750, len: 270, msrp: 599, p: 31, riv: 'RX 6800' },
   { n: 'RTX 3070', code: 'GA104', vram: 8, vt: 'GDDR6', bus: 256, bw: 448, sh: 5888, tbp: 220, conn: '1 × 8 o 2 × 8 pines', psu: 650, len: 242, msrp: 499, p: 29, riv: 'RX 6700 XT' },
   { n: 'RTX 3060 Ti', code: 'GA104', vram: 8, vt: 'GDDR6', bus: 256, bw: 448, sh: 4864, tbp: 200, conn: '1 × 8 pines', psu: 600, len: 242, msrp: 399, p: 25, riv: 'RX 6700 XT' },
-  { n: 'RTX 3060', y: 2021, code: 'GA106', vram: 12, vt: 'GDDR6', bus: 192, bw: 360, sh: 3584, tbp: 170, conn: '1 × 8 pines', psu: 550, len: 242, msrp: 329, p: 19, riv: 'RX 6600 XT', note: 'Existe una versión de 8 GB con bus de 128 bits, bastante peor. Mira bien la caja.' },
+  { n: 'RTX 3060', y: 2021, code: 'GA106', vram: 12, vt: 'GDDR6', bus: 192, bw: 360, sh: 3584, tbp: 170, conn: '1 × 8 pines', psu: 550, len: 242, msrp: 329, p: 19, riv: 'RX 6600 XT', mine: true, note: 'Tu gráfica (confirmada con PowerShell). 12 GB de VRAM: más mesa que muchas gráficas nuevas de 8 GB. Tiene DLSS (sin Frame Generation de NVIDIA) y RT de 2.ª generación. Existe una versión de 8 GB con bus de 128 bits, bastante peor: mira «Memoria de GPU dedicada» en el Administrador de tareas.' },
   { n: 'RTX 3050', y: 2022, code: 'GA106', vram: 8, vt: 'GDDR6', bus: 128, bw: 224, sh: 2560, tbp: 130, conn: '1 × 8 pines', psu: 550, len: 200, msrp: 249, lanes: 8, p: 12.5, riv: 'RX 6600' },
   { n: 'RTX 3050 6GB', y: 2024, code: 'GA107', vram: 6, vt: 'GDDR6', bus: 96, bw: 168, sh: 2304, tbp: 70, conn: 'Ninguno', psu: 300, len: 180, msrp: 169, lanes: 8, p: 9, riv: 'RX 6400', note: 'Trampa: mismo nombre que la 3050 de 8 GB, pero bastante más lenta.' }
 ]),
