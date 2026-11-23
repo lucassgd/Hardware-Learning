@@ -7,7 +7,7 @@ App móvil (HTML + JS en un solo fichero, sin conexión) para aprender hardware 
 Datos verificados a **11/11/2026**; «Mi PC» actualizado el 23/11/2026 con los datos reales (Acer Nitro N50-640, i5-12400F, RTX 3060 12 GB, 2 × 8 GB DDR4-3200, NVMe 1 TB, monitor 1440p 280 Hz) y el plan de mejora de Black Friday. Precios orientativos de 11/2026.
 
 ## Pestañas
-1. **Aprender**: 20 lecciones (a–t: incluye monitor y red de casa) en 4 niveles, con concepto → analogía → ejemplo real → trampa, dibujos SVG, «Con tu PC» y test final.
+1. **Aprender**: botón «Empieza por aquí / Continuar», lecciones paso a paso (una tarjeta cada vez, «Lo esencial en 3 frases», ejemplo y trampa desplegables, preguntas rápidas «¿Lo pillas?»; también se puede leer todo seguido). 20 lecciones (a–t: incluye monitor y red de casa) en 4 niveles, con concepto → analogía → ejemplo real → trampa, dibujos SVG, «Con tu PC» y test final.
 2. **Catálogo**: procesadores AMD (Ryzen 1000 → 9950X3D2 y portátiles) e Intel (8.ª gen → Core Ultra 200S Plus, Panther Lake) y gráficas NVIDIA (GTX 10 → RTX 50), AMD (RX 5000 → RX 9000) e Intel Arc (A y B). Filtros, fichas, índices con su fuente y línea de tiempo.
 3. **Comparar**: dos procesadores o dos gráficas + un uso → fichas lado a lado, razonamiento generado por reglas, trampas, veredicto, «frase para decirlo» y modo práctica.
 4. **Nombres**: descodificador de modelos por partes y colores.
@@ -18,7 +18,7 @@ Datos verificados a **11/11/2026**; «Mi PC» actualizado el 23/11/2026 con los 
 ## Estructura (datos separados de la lógica)
 ```
 src/data/   cpus.js · gpus.js · platform.js (arquitecturas, zócalos, chipsets, piezas genéricas, precios)
-            lessons1.js · lessons2.js · questions.js · glossary.js · svg.js
+            lessons1.js · lessons2.js · essentials.js (3 frases por lección) · questions.js · glossary.js · svg.js
 src/js/     engine.js (reglas: comparador, descodificador, fuente, cuello de botella, compatibilidad)
             core.js · ui.js · tools.js · practice.js · main.js (interfaz)
 build.mjs   junta todo en dist/la-cocina-del-pc.html (documento completo) y dist/artifact.html

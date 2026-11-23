@@ -86,12 +86,21 @@
 
   /* ---------------- Aprender ---------------- */
   HW.ui.lvl = '';
+  /* Ruta recomendada: primero todos los básicos, luego intermedio, avanzado y experto. */
+  HW.path = function () { var lv = ['Básico', 'Intermedio', 'Avanzado', 'Experto']; return lv.reduce(function (a, l) { return a.concat(HW.lessons.filter(function (x) { return x.lvl === l; })); }, []); };
+  function contBox() {
+    var path = HW.path(), st = HW.S.step || {};
+    var L = path.find(function (x) { return st[x.id] && !HW.S.done[x.id]; }) || path.find(function (x) { return !HW.S.done[x.id]; });
+    if (!L) return '<div class="box ess"><h4>¡Has terminado todas las lecciones!</h4><p class="small">Repasa con «Practicar» para que no se olvide.</p></div>';
+    var k = path.indexOf(L) + 1, started = st[L.id] > 0;
+    return '<button class="continue" data-act="openL" data-id="' + L.id + '"><span class="eyebrow">' + (started ? 'Continuar donde lo dejaste' : (k === 1 ? 'Empieza por aquí' : 'Siguiente lección')) + ' · ' + k + ' de ' + path.length + '</span><b>' + L.id + ') ' + h(L.t) + '</b><span class="small">' + h(L.sum) + '</span><span class="go">' + (started ? 'Seguir →' : 'Empezar →') + '</span></button>';
+  }
   HW.V.aprender = function () {
     var total = HW.lessons.length, done = HW.lessons.filter(function (l) { return HW.S.done[l.id]; }).length, pc = HW.S.myPc;
     var lv = ['Básico', 'Intermedio', 'Avanzado', 'Experto'];
     return '<section class="stack"><div class="section-title"><h1>Aprender</h1><span class="pill">' + done + ' de ' + total + ' lecciones</span></div>' +
       '<div class="progress" aria-label="Progreso"><i style="width:' + (done / total * 100) + '%"></i></div>' +
-      '<div class="box mine"><h4>Tu PC, el caso práctico de toda la app</h4><p class="small">' + h(pc.model || '') + ': ' + h(pc.cpu) + ' · ' + h(pc.gpu) + ' (' + (pc.vram || 12) + ' GB) · ' + h(pc.ram) + ' · ' + h(pc.storage) + ' · ' + h(pc.os) + '</p>' + (pc.monitor ? '<p class="small">Monitor: ' + h(pc.monitor) + '</p>' : '') + '<p class="small">Placa: ' + (pc.chip ? 'chipset ' + h(pc.chip) : 'por averiguar') + ' · Fuente: ' + (pc.psuW ? pc.psuW + ' W' : 'por averiguar') + '</p><div class="row"><button class="btn sm" data-act="goTool" data-t="mipc">Completar datos de mi PC</button></div></div>' +
+      contBox() + '<div class="box mine"><h4>Tu PC, el caso práctico de toda la app</h4><p class="small">' + h(pc.model || '') + ': ' + h(pc.cpu) + ' · ' + h(pc.gpu) + ' (' + (pc.vram || 12) + ' GB) · ' + h(pc.ram) + ' · ' + h(pc.storage) + ' · ' + h(pc.os) + '</p>' + (pc.monitor ? '<p class="small">Monitor: ' + h(pc.monitor) + '</p>' : '') + '<p class="small">Placa: ' + (pc.chip ? 'chipset ' + h(pc.chip) : 'por averiguar') + ' · Fuente: ' + (pc.psuW ? pc.psuW + ' W' : 'por averiguar') + '</p><div class="row"><button class="btn sm" data-act="goTool" data-t="mipc">Completar datos de mi PC</button></div></div>' +
       '<div class="chips" role="group" aria-label="Nivel">' + ['', 'Básico', 'Intermedio', 'Avanzado', 'Experto'].map(function (l) { return '<button class="chip" data-act="lvl" data-l="' + l + '" aria-pressed="' + (HW.ui.lvl === l) + '">' + (l || 'Todas') + '</button>'; }).join('') + '</div>' +
       lv.filter(function (l) { return !HW.ui.lvl || HW.ui.lvl === l; }).map(function (l) {
         var ls = HW.lessons.filter(function (x) { return x.lvl === l; });
@@ -102,15 +111,71 @@
   HW.A.openL = function (el) { HW.go('leccion-' + el.dataset.id); };
   HW.A.goTool = function (el) { HW.ui.tool = el.dataset.t; HW.go('herramientas'); };
 
+  /* Lección en modo paso a paso: una tarjeta cada vez. Los subtítulos y párrafos se juntan con el bloque siguiente. */
+  function slidesOf(L) {
+    var out = [], cur = [], concepts = L.body.filter(function (b) { return b.c; }).map(function (b) { return b.c; }), ci = 0;
+    L.body.forEach(function (b) {
+      cur.push(b);
+      if (b.h || b.p) return;
+      out.push({ blocks: cur }); cur = [];
+      var k = b.c ? ci++ : -1;
+      if (b.c && concepts.length >= 3 && k % 2 === 1) {
+        var others = concepts.filter(function (x) { return x !== b.c; });
+        var o1 = others[k % others.length], o2 = others[(k + 1) % others.length];
+        var opts = [b.c.a, o1.a, o2.a], rot = k % 3, ord = [0, 1, 2].map(function (j) { return (j + rot) % 3; });
+        out.push({ check: { h: b.c.h, opts: ord.map(function (j) { return opts[j]; }), ok: ord.indexOf(0) } });
+      }
+    });
+    if (cur.length) out.push({ blocks: cur });
+    return out;
+  }
+  function essHtml(L, title) {
+    var es = HW.essentials && HW.essentials[L.id]; if (!es) return '';
+    return '<div class="box ess"><h4>' + title + '</h4><ol>' + es.map(function (x) { return '<li>' + h(x) + '</li>'; }).join('') + '</ol></div>';
+  }
+  function compactConcept(c) {
+    return '<article class="concept"><h3>' + c.h + '</h3><span class="term">' + c.term + '</span><dl><div><dt class="k-que">Qué es</dt><dd>' + c.q + '</dd></div><div><dt class="k-ana">En la cocina</dt><dd>' + c.a + '</dd></div></dl>' +
+      '<details class="more"><summary>Ver ejemplo real y trampa</summary><dl><div><dt class="k-eje">Ejemplo real</dt><dd>' + c.e + '</dd></div><div><dt class="k-tra">Trampa típica</dt><dd>' + c.t + '</dd></div></dl></details></article>';
+  }
   HW.V.leccion = function (id) {
     var L = HW.lesson(id); if (!L) return HW.V.aprender();
     var idx = HW.lessons.indexOf(L), prev = HW.lessons[idx - 1], next = HW.lessons[idx + 1];
     var qs = (L.quiz || []).map(function (q, i) { return Object.assign({ id: L.id + '-' + i, l: L.id, lvl: L.lvl }, q); });
-    return '<article class="lesson-body"><div class="row"><button class="btn sm ghost" data-act="back">← Lecciones</button><span class="pill a">' + L.lvl + '</span>' + (HW.S.done[L.id] ? '<span class="pill ok">Hecha</span>' : '') + '</div>' +
-      '<h1>' + L.id + ') ' + h(L.t) + '</h1><p class="muted">' + h(L.sum) + '</p>' + L.body.map(block).join('') +
-      '<h2>Comprueba lo que has aprendido</h2>' + HW.quizHtml('L' + L.id, qs, { onEnd: function (pct) { HW.S.quiz[L.id] = Math.max(HW.S.quiz[L.id] || 0, pct); HW.S.done[L.id] = true; HW.save(); return '<p class="small">Lección marcada como hecha.</p>'; } }) +
-      '<div class="row"><button class="btn" data-act="markDone" data-id="' + L.id + '">' + (HW.S.done[L.id] ? 'Marcar como pendiente' : 'Marcar como leída') + '</button></div>' +
-      '<div class="grid2">' + (prev ? '<button class="btn" data-act="openL" data-id="' + prev.id + '">← ' + prev.id + ') ' + h(prev.t) + '</button>' : '<span></span>') + (next ? '<button class="btn primary" data-act="openL" data-id="' + next.id + '">' + next.id + ') ' + h(next.t) + ' →</button>' : '<span></span>') + '</div></article>';
+    var full = !!HW.S.fullRead;
+    var head = '<div class="row"><button class="btn sm ghost" data-act="back">← Lecciones</button><span class="pill a">' + L.lvl + '</span>' + (HW.S.done[L.id] ? '<span class="pill ok">Hecha</span>' : '') +
+      '<button class="btn sm ghost" data-act="readMode" style="margin-left:auto">' + (full ? 'Paso a paso' : 'Ver todo seguido') + '</button></div>' +
+      '<h1>' + L.id + ') ' + h(L.t) + '</h1>';
+    var quiz = '<h2>Comprueba lo que has aprendido</h2>' + HW.quizHtml('L' + L.id, qs, { onEnd: function (pct) { HW.S.quiz[L.id] = Math.max(HW.S.quiz[L.id] || 0, pct); HW.S.done[L.id] = true; HW.save(); return '<p class="small">Lección marcada como hecha.</p>'; } });
+    var nav = '<div class="grid2">' + (prev ? '<button class="btn" data-act="openL" data-id="' + prev.id + '">← ' + prev.id + ') ' + h(prev.t) + '</button>' : '<span></span>') + (next ? '<button class="btn primary" data-act="openL" data-id="' + next.id + '">' + next.id + ') ' + h(next.t) + ' →</button>' : '<span></span>') + '</div>';
+    if (full) {
+      return '<article class="lesson-body">' + head + '<p class="muted">' + h(L.sum) + '</p>' + essHtml(L, 'Lo esencial') + L.body.map(block).join('') + quiz +
+        '<div class="row"><button class="btn" data-act="markDone" data-id="' + L.id + '">' + (HW.S.done[L.id] ? 'Marcar como pendiente' : 'Marcar como leída') + '</button></div>' + nav + '</article>';
+    }
+    var sl = slidesOf(L), n = sl.length + 2, pos = HW.S.step = HW.S.step || {}, i = Math.min(pos[L.id] || 0, n - 1), body;
+    if (i === 0) body = '<p class="lead">' + h(L.sum) + '</p>' + essHtml(L, 'Lo esencial en 3 frases') + '<p class="small muted">Lee una tarjeta, pulsa «Siguiente». Si algo no lo pillas, sigue: al final lo repasas.</p>';
+    else if (i === n - 1) body = essHtml(L, 'Repaso: lo esencial') + quiz + nav;
+    else {
+      var s = sl[i - 1];
+      body = s.check ? '<div class="card q check"><div class="eyebrow">¿Lo pillas?</div><b>«' + s.check.h + '», en la cocina, es…</b>' + s.check.opts.map(function (o, j) { return '<button class="opt" data-act="chk" data-ok="' + (j === s.check.ok ? 1 : 0) + '">' + o + '</button>'; }).join('') + '<p class="explain small" hidden></p></div>'
+        : s.blocks.map(function (b) { return b.c ? compactConcept(b.c) : block(b); }).join('');
+    }
+    return '<article class="lesson-body step">' + head +
+      '<div class="steps" aria-label="Progreso de la lección"><i style="width:' + Math.round(i / (n - 1) * 100) + '%"></i></div><p class="tiny muted">Tarjeta ' + (i + 1) + ' de ' + n + '</p>' +
+      '<div class="slide">' + body + '</div>' +
+      (i < n - 1 ? '<div class="stepnav"><button class="btn" data-act="step" data-d="-1"' + (i === 0 ? ' disabled' : '') + '>← Atrás</button><button class="btn primary" data-act="step" data-d="1">' + (i === 0 ? 'Empezar →' : i === n - 2 ? 'Al repaso y test →' : 'Siguiente →') + '</button></div>'
+        : '<div class="stepnav"><button class="btn" data-act="step" data-d="-1">← Atrás</button><button class="btn" data-act="step" data-d="restart">Volver a empezar</button></div>') + '</article>';
+  };
+  HW.A.step = function (el) {
+    var id = (location.hash.match(/leccion-([a-z])/) || [])[1]; if (!id) return;
+    var st = HW.S.step = HW.S.step || {};
+    st[id] = el.dataset.d === 'restart' ? 0 : Math.max(0, (st[id] || 0) + (+el.dataset.d)); HW.save(); HW.route();
+  };
+  HW.A.readMode = function () { HW.S.fullRead = !HW.S.fullRead; HW.save(); HW.route(); };
+  HW.A.chk = function (el) {
+    var card = el.closest('.check'); if (card.dataset.done) return; card.dataset.done = '1';
+    var ok = el.dataset.ok === '1';
+    card.querySelectorAll('.opt').forEach(function (b) { if (b.dataset.ok === '1') b.classList.add('right'); else if (b === el) b.classList.add('wrong'); });
+    var ex = card.querySelector('.explain'); ex.hidden = false; ex.innerHTML = ok ? '<b>¡Eso es!</b> Pulsa «Siguiente».' : '<b>Casi.</b> La buena es la marcada en verde. Pulsa «Atrás» si quieres releerla.';
   };
   HW.V.leccion.after = function (root) { root.querySelectorAll('.hot').forEach(function (g) { g.addEventListener('click', function () { var s = HW.boardSpots[+g.dataset.spot - 1]; HW.toast(s.n + ' · ' + s.k); }); }); };
   HW.A.back = function () { HW.go('aprender'); };

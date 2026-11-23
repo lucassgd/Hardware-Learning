@@ -265,6 +265,23 @@ details.more > div { padding: 0 14px 14px; display: flex; flex-direction: column
 .sticky-sub { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 61px); z-index: 5; background: var(--bg); padding-block: 6px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 @media (min-width: 900px) { nav.tabs { max-width: 760px; margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-radius: 14px 14px 0 0; } }
+
+/* ---- Aprender más fácil: paso a paso ---- */
+.continue { display: flex; flex-direction: column; gap: 4px; width: 100%; text-align: left; padding: 16px; border-radius: var(--r); border: 2px solid var(--accent); background: var(--accent-soft); color: var(--fg); cursor: pointer; }
+.continue b { font-family: var(--font-display); font-size: 1.15rem; }
+.continue .go { align-self: flex-end; font-weight: 700; color: var(--accent); margin-top: 4px; }
+.box.ess { border-left: 4px solid var(--accent); }
+.box.ess ol { margin: 6px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.lesson-body.step .slide { min-height: 46vh; display: flex; flex-direction: column; gap: 14px; }
+.lesson-body .lead { font-size: 1.1rem; }
+.steps { height: 6px; border-radius: 3px; background: var(--surface2); overflow: hidden; }
+.steps i { display: block; height: 100%; background: var(--accent); transition: width .25s; }
+.stepnav { position: sticky; bottom: calc(64px + env(safe-area-inset-bottom, 0px)); display: grid; grid-template-columns: 1fr 2fr; gap: 10px; padding: 10px 0; background: var(--bg); }
+.concept details.more { border-top: 1px dashed var(--line); padding: 10px 14px 12px; }
+.concept details.more summary { cursor: pointer; font-weight: 600; color: var(--b); min-height: 32px; display: flex; align-items: center; }
+.concept details.more dl { padding: 8px 0 0; }
+.check .opt.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 15%, transparent); }
+.check .opt.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 15%, transparent); }
 </style>
 </head>
 <body>
@@ -1463,6 +1480,35 @@ HW.lessons.push(
 ] }
 );
 
+/* ==== data/essentials.js ==== */
+/* =========================================================================
+   DATOS · LO ESENCIAL DE CADA LECCIÓN (3 frases cortas)
+   Se muestran al empezar y al terminar la lección en modo paso a paso.
+   ========================================================================= */
+window.HW = window.HW || {};
+HW.essentials = {
+  a: ['El PC es una cocina: la CPU es el jefe, la GPU un ejército de pinches, la RAM la encimera y el SSD la despensa.', 'Cada pieza hace un trabajo distinto: para jugar, casi siempre manda la gráfica.', 'Un juego va de la despensa (SSD) a la encimera (RAM), lo reparte el jefe (CPU) y lo dibujan los pinches (GPU).'],
+  b: ['Lo que rinde un procesador depende de cuánto hace por ciclo (IPC), de los GHz y del número de núcleos.', 'Para jugar importan más pocos núcleos rápidos y mucha caché que muchos núcleos.', 'Solo compara números dentro de la misma generación: un i5 nuevo puede ganar a un i7 viejo.'],
+  c: ['El nombre dice gama, generación, posición y sufijo: i5-12400F = gama media, 12.ª generación, sin gráficos integrados (F).', 'Intel: K = se puede overclockear, F = sin gráficos. AMD: X = más rápido, X3D = caché extra para juegos, G = con gráficos.', 'El número más alto no siempre es mejor: mira primero la generación.'],
+  d: ['Para comparar dos piezas: mira la ficha, la arquitectura, razona y confirma con pruebas reales.', 'Busca reseñas fiables (TechPowerUp, Hardware Unboxed, Gamers Nexus), nunca UserBenchmark.', 'Compara a la resolución y en los juegos que tú usas, y mira también los 1 % lows.'],
+  e: ['La gráfica dibuja la imagen con miles de núcleos pequeños; su memoria (VRAM) es su mesa de trabajo.', 'Hoy, 8 GB de VRAM se quedan cortos: 12-16 GB para 1440p.', 'DLSS, FSR y XeSS dibujan a menos resolución y reescalan: más FPS casi sin perder calidad.'],
+  f: ['La placa es el edificio: decide qué procesador (zócalo), qué RAM (DDR4 o DDR5) y cuántos SSD caben.', 'El chipset decide qué puedes hacer: overclock, cuántos carriles PCIe, cuántos M.2.', 'Antes de comprar procesador, mira que tu placa lo admita y que su BIOS esté actualizada.'],
+  g: ['La RAM es la encimera: donde está lo que el PC usa ahora mismo.', 'Dos módulos iguales (doble canal) rinden más que uno solo de la misma capacidad.', 'Para jugar, 16 GB bastan y 32 GB es lo cómodo; activa XMP/EXPO si tu placa lo permite.'],
+  h: ['El SSD es la despensa: guarda los juegos y Windows aunque apagues.', 'NVMe es mucho más rápido que SATA y que un disco duro, pero no da más FPS: da cargas más rápidas.', 'Deja siempre algo de espacio libre (≈15 %) para que no vaya lento.'],
+  i: ['La fuente lleva la electricidad a todo: más vale que sobre un poco que falte.', 'Mira la marca y el modelo, no solo los vatios: una fuente mala puede romper piezas.', 'Para una gráfica media, una de 550-650 W de calidad (80 Plus Gold) suele bastar.'],
+  j: ['El calor hay que sacarlo: el disipador lo recoge y los ventiladores lo echan fuera.', 'La refrigeración por aire bien elegida es suficiente para casi todos.', 'Una caja con buen flujo de aire importa tanto como el disipador.'],
+  k: ['La caja decide qué cabe: largo de gráfica, alto de disipador y tamaño de placa.', 'Mide antes de comprar: una gráfica larga puede no entrar en una caja pequeña.', 'Que respire por delante (frontal con rejilla) mantiene todo más fresco.'],
+  l: ['Cada cable tiene su sitio: corriente a la placa (24 pines), al procesador (EPS) y a la gráfica (PCIe).', 'El monitor se conecta a la gráfica, no a la placa.', 'Si un conector no entra, no lo fuerces: está al revés o no es ese.'],
+  m: ['Monta en orden: procesador, RAM y SSD en la placa; luego la placa en la caja; al final, gráfica y cables.', 'Si no da imagen, casi siempre es la RAM mal encajada o un cable sin poner.', 'Después: BIOS, XMP, drivers y vigilar temperaturas.'],
+  n: ['El cuello de botella es la pieza que frena a las demás.', 'A más resolución, más manda la gráfica; a menos resolución y muchos FPS, más manda el procesador.', 'Si la gráfica va al ≈99 %, el límite es ella: es lo normal y está bien.'],
+  o: ['Mejora primero lo que más FPS da por euro: casi siempre la gráfica.', 'Antes de comprar, revisa fuente, conectores y espacio en la caja.', 'Compara precios en varias tiendas: el precio tachado puede ser mentira.'],
+  p: ['De segunda mano se puede ahorrar mucho, pero pruébalo antes de pagar.', 'Pide verlo funcionando, mira temperaturas y evita lo que no puedas probar.', 'Cuidado con gráficas de minería y con los Intel 13.ª/14.ª sin BIOS actualizada.'],
+  q: ['Unas empresas diseñan chips (AMD, NVIDIA) y otras los fabrican (TSMC, Samsung, Intel).', 'Las máquinas más avanzadas solo las hace ASML: por eso hay pocas fábricas punteras.', 'La demanda de la IA ha subido mucho el precio de la memoria y de las gráficas.'],
+  r: ['Una gráfica de portátil rinde menos que la de sobremesa con el mismo nombre.', 'En portátiles mira el TGP (los vatios de la gráfica) y el sufijo del procesador (U, H, HX).', 'En un portátil casi nada se puede cambiar: elige bien desde el principio.'],
+  s: ['El monitor es el camarero: los Hz son cuántas imágenes por segundo puede enseñar.', 'Los Hz no dan FPS: solo dejan ver los que ya da la gráfica.', 'G-Sync/FreeSync quita el desgarro sin retraso; usa DisplayPort para los Hz altos.'],
+  t: ['Para jugar online importa más la latencia estable (ping sin picos) que la velocidad máxima.', 'El cable gana al Wi-Fi; si el router está lejos, un PLC lleva internet por los cables de la luz.', 'Enchufa el PLC directo a la pared, nunca en una regleta, y usa cable Cat 5e o Cat 6 de cobre.']
+};
+
 /* ==== data/questions.js ==== */
 /* =========================================================================
    DATOS · PREGUNTAS EXTRA PARA PRACTICAR (además de las de cada lección)
@@ -2415,12 +2461,21 @@ window.HW = window.HW || {};
 
   /* ---------------- Aprender ---------------- */
   HW.ui.lvl = '';
+  /* Ruta recomendada: primero todos los básicos, luego intermedio, avanzado y experto. */
+  HW.path = function () { var lv = ['Básico', 'Intermedio', 'Avanzado', 'Experto']; return lv.reduce(function (a, l) { return a.concat(HW.lessons.filter(function (x) { return x.lvl === l; })); }, []); };
+  function contBox() {
+    var path = HW.path(), st = HW.S.step || {};
+    var L = path.find(function (x) { return st[x.id] && !HW.S.done[x.id]; }) || path.find(function (x) { return !HW.S.done[x.id]; });
+    if (!L) return '<div class="box ess"><h4>¡Has terminado todas las lecciones!</h4><p class="small">Repasa con «Practicar» para que no se olvide.</p></div>';
+    var k = path.indexOf(L) + 1, started = st[L.id] > 0;
+    return '<button class="continue" data-act="openL" data-id="' + L.id + '"><span class="eyebrow">' + (started ? 'Continuar donde lo dejaste' : (k === 1 ? 'Empieza por aquí' : 'Siguiente lección')) + ' · ' + k + ' de ' + path.length + '</span><b>' + L.id + ') ' + h(L.t) + '</b><span class="small">' + h(L.sum) + '</span><span class="go">' + (started ? 'Seguir →' : 'Empezar →') + '</span></button>';
+  }
   HW.V.aprender = function () {
     var total = HW.lessons.length, done = HW.lessons.filter(function (l) { return HW.S.done[l.id]; }).length, pc = HW.S.myPc;
     var lv = ['Básico', 'Intermedio', 'Avanzado', 'Experto'];
     return '<section class="stack"><div class="section-title"><h1>Aprender</h1><span class="pill">' + done + ' de ' + total + ' lecciones</span></div>' +
       '<div class="progress" aria-label="Progreso"><i style="width:' + (done / total * 100) + '%"></i></div>' +
-      '<div class="box mine"><h4>Tu PC, el caso práctico de toda la app</h4><p class="small">' + h(pc.model || '') + ': ' + h(pc.cpu) + ' · ' + h(pc.gpu) + ' (' + (pc.vram || 12) + ' GB) · ' + h(pc.ram) + ' · ' + h(pc.storage) + ' · ' + h(pc.os) + '</p>' + (pc.monitor ? '<p class="small">Monitor: ' + h(pc.monitor) + '</p>' : '') + '<p class="small">Placa: ' + (pc.chip ? 'chipset ' + h(pc.chip) : 'por averiguar') + ' · Fuente: ' + (pc.psuW ? pc.psuW + ' W' : 'por averiguar') + '</p><div class="row"><button class="btn sm" data-act="goTool" data-t="mipc">Completar datos de mi PC</button></div></div>' +
+      contBox() + '<div class="box mine"><h4>Tu PC, el caso práctico de toda la app</h4><p class="small">' + h(pc.model || '') + ': ' + h(pc.cpu) + ' · ' + h(pc.gpu) + ' (' + (pc.vram || 12) + ' GB) · ' + h(pc.ram) + ' · ' + h(pc.storage) + ' · ' + h(pc.os) + '</p>' + (pc.monitor ? '<p class="small">Monitor: ' + h(pc.monitor) + '</p>' : '') + '<p class="small">Placa: ' + (pc.chip ? 'chipset ' + h(pc.chip) : 'por averiguar') + ' · Fuente: ' + (pc.psuW ? pc.psuW + ' W' : 'por averiguar') + '</p><div class="row"><button class="btn sm" data-act="goTool" data-t="mipc">Completar datos de mi PC</button></div></div>' +
       '<div class="chips" role="group" aria-label="Nivel">' + ['', 'Básico', 'Intermedio', 'Avanzado', 'Experto'].map(function (l) { return '<button class="chip" data-act="lvl" data-l="' + l + '" aria-pressed="' + (HW.ui.lvl === l) + '">' + (l || 'Todas') + '</button>'; }).join('') + '</div>' +
       lv.filter(function (l) { return !HW.ui.lvl || HW.ui.lvl === l; }).map(function (l) {
         var ls = HW.lessons.filter(function (x) { return x.lvl === l; });
@@ -2431,15 +2486,71 @@ window.HW = window.HW || {};
   HW.A.openL = function (el) { HW.go('leccion-' + el.dataset.id); };
   HW.A.goTool = function (el) { HW.ui.tool = el.dataset.t; HW.go('herramientas'); };
 
+  /* Lección en modo paso a paso: una tarjeta cada vez. Los subtítulos y párrafos se juntan con el bloque siguiente. */
+  function slidesOf(L) {
+    var out = [], cur = [], concepts = L.body.filter(function (b) { return b.c; }).map(function (b) { return b.c; }), ci = 0;
+    L.body.forEach(function (b) {
+      cur.push(b);
+      if (b.h || b.p) return;
+      out.push({ blocks: cur }); cur = [];
+      var k = b.c ? ci++ : -1;
+      if (b.c && concepts.length >= 3 && k % 2 === 1) {
+        var others = concepts.filter(function (x) { return x !== b.c; });
+        var o1 = others[k % others.length], o2 = others[(k + 1) % others.length];
+        var opts = [b.c.a, o1.a, o2.a], rot = k % 3, ord = [0, 1, 2].map(function (j) { return (j + rot) % 3; });
+        out.push({ check: { h: b.c.h, opts: ord.map(function (j) { return opts[j]; }), ok: ord.indexOf(0) } });
+      }
+    });
+    if (cur.length) out.push({ blocks: cur });
+    return out;
+  }
+  function essHtml(L, title) {
+    var es = HW.essentials && HW.essentials[L.id]; if (!es) return '';
+    return '<div class="box ess"><h4>' + title + '</h4><ol>' + es.map(function (x) { return '<li>' + h(x) + '</li>'; }).join('') + '</ol></div>';
+  }
+  function compactConcept(c) {
+    return '<article class="concept"><h3>' + c.h + '</h3><span class="term">' + c.term + '</span><dl><div><dt class="k-que">Qué es</dt><dd>' + c.q + '</dd></div><div><dt class="k-ana">En la cocina</dt><dd>' + c.a + '</dd></div></dl>' +
+      '<details class="more"><summary>Ver ejemplo real y trampa</summary><dl><div><dt class="k-eje">Ejemplo real</dt><dd>' + c.e + '</dd></div><div><dt class="k-tra">Trampa típica</dt><dd>' + c.t + '</dd></div></dl></details></article>';
+  }
   HW.V.leccion = function (id) {
     var L = HW.lesson(id); if (!L) return HW.V.aprender();
     var idx = HW.lessons.indexOf(L), prev = HW.lessons[idx - 1], next = HW.lessons[idx + 1];
     var qs = (L.quiz || []).map(function (q, i) { return Object.assign({ id: L.id + '-' + i, l: L.id, lvl: L.lvl }, q); });
-    return '<article class="lesson-body"><div class="row"><button class="btn sm ghost" data-act="back">← Lecciones</button><span class="pill a">' + L.lvl + '</span>' + (HW.S.done[L.id] ? '<span class="pill ok">Hecha</span>' : '') + '</div>' +
-      '<h1>' + L.id + ') ' + h(L.t) + '</h1><p class="muted">' + h(L.sum) + '</p>' + L.body.map(block).join('') +
-      '<h2>Comprueba lo que has aprendido</h2>' + HW.quizHtml('L' + L.id, qs, { onEnd: function (pct) { HW.S.quiz[L.id] = Math.max(HW.S.quiz[L.id] || 0, pct); HW.S.done[L.id] = true; HW.save(); return '<p class="small">Lección marcada como hecha.</p>'; } }) +
-      '<div class="row"><button class="btn" data-act="markDone" data-id="' + L.id + '">' + (HW.S.done[L.id] ? 'Marcar como pendiente' : 'Marcar como leída') + '</button></div>' +
-      '<div class="grid2">' + (prev ? '<button class="btn" data-act="openL" data-id="' + prev.id + '">← ' + prev.id + ') ' + h(prev.t) + '</button>' : '<span></span>') + (next ? '<button class="btn primary" data-act="openL" data-id="' + next.id + '">' + next.id + ') ' + h(next.t) + ' →</button>' : '<span></span>') + '</div></article>';
+    var full = !!HW.S.fullRead;
+    var head = '<div class="row"><button class="btn sm ghost" data-act="back">← Lecciones</button><span class="pill a">' + L.lvl + '</span>' + (HW.S.done[L.id] ? '<span class="pill ok">Hecha</span>' : '') +
+      '<button class="btn sm ghost" data-act="readMode" style="margin-left:auto">' + (full ? 'Paso a paso' : 'Ver todo seguido') + '</button></div>' +
+      '<h1>' + L.id + ') ' + h(L.t) + '</h1>';
+    var quiz = '<h2>Comprueba lo que has aprendido</h2>' + HW.quizHtml('L' + L.id, qs, { onEnd: function (pct) { HW.S.quiz[L.id] = Math.max(HW.S.quiz[L.id] || 0, pct); HW.S.done[L.id] = true; HW.save(); return '<p class="small">Lección marcada como hecha.</p>'; } });
+    var nav = '<div class="grid2">' + (prev ? '<button class="btn" data-act="openL" data-id="' + prev.id + '">← ' + prev.id + ') ' + h(prev.t) + '</button>' : '<span></span>') + (next ? '<button class="btn primary" data-act="openL" data-id="' + next.id + '">' + next.id + ') ' + h(next.t) + ' →</button>' : '<span></span>') + '</div>';
+    if (full) {
+      return '<article class="lesson-body">' + head + '<p class="muted">' + h(L.sum) + '</p>' + essHtml(L, 'Lo esencial') + L.body.map(block).join('') + quiz +
+        '<div class="row"><button class="btn" data-act="markDone" data-id="' + L.id + '">' + (HW.S.done[L.id] ? 'Marcar como pendiente' : 'Marcar como leída') + '</button></div>' + nav + '</article>';
+    }
+    var sl = slidesOf(L), n = sl.length + 2, pos = HW.S.step = HW.S.step || {}, i = Math.min(pos[L.id] || 0, n - 1), body;
+    if (i === 0) body = '<p class="lead">' + h(L.sum) + '</p>' + essHtml(L, 'Lo esencial en 3 frases') + '<p class="small muted">Lee una tarjeta, pulsa «Siguiente». Si algo no lo pillas, sigue: al final lo repasas.</p>';
+    else if (i === n - 1) body = essHtml(L, 'Repaso: lo esencial') + quiz + nav;
+    else {
+      var s = sl[i - 1];
+      body = s.check ? '<div class="card q check"><div class="eyebrow">¿Lo pillas?</div><b>«' + s.check.h + '», en la cocina, es…</b>' + s.check.opts.map(function (o, j) { return '<button class="opt" data-act="chk" data-ok="' + (j === s.check.ok ? 1 : 0) + '">' + o + '</button>'; }).join('') + '<p class="explain small" hidden></p></div>'
+        : s.blocks.map(function (b) { return b.c ? compactConcept(b.c) : block(b); }).join('');
+    }
+    return '<article class="lesson-body step">' + head +
+      '<div class="steps" aria-label="Progreso de la lección"><i style="width:' + Math.round(i / (n - 1) * 100) + '%"></i></div><p class="tiny muted">Tarjeta ' + (i + 1) + ' de ' + n + '</p>' +
+      '<div class="slide">' + body + '</div>' +
+      (i < n - 1 ? '<div class="stepnav"><button class="btn" data-act="step" data-d="-1"' + (i === 0 ? ' disabled' : '') + '>← Atrás</button><button class="btn primary" data-act="step" data-d="1">' + (i === 0 ? 'Empezar →' : i === n - 2 ? 'Al repaso y test →' : 'Siguiente →') + '</button></div>'
+        : '<div class="stepnav"><button class="btn" data-act="step" data-d="-1">← Atrás</button><button class="btn" data-act="step" data-d="restart">Volver a empezar</button></div>') + '</article>';
+  };
+  HW.A.step = function (el) {
+    var id = (location.hash.match(/leccion-([a-z])/) || [])[1]; if (!id) return;
+    var st = HW.S.step = HW.S.step || {};
+    st[id] = el.dataset.d === 'restart' ? 0 : Math.max(0, (st[id] || 0) + (+el.dataset.d)); HW.save(); HW.route();
+  };
+  HW.A.readMode = function () { HW.S.fullRead = !HW.S.fullRead; HW.save(); HW.route(); };
+  HW.A.chk = function (el) {
+    var card = el.closest('.check'); if (card.dataset.done) return; card.dataset.done = '1';
+    var ok = el.dataset.ok === '1';
+    card.querySelectorAll('.opt').forEach(function (b) { if (b.dataset.ok === '1') b.classList.add('right'); else if (b === el) b.classList.add('wrong'); });
+    var ex = card.querySelector('.explain'); ex.hidden = false; ex.innerHTML = ok ? '<b>¡Eso es!</b> Pulsa «Siguiente».' : '<b>Casi.</b> La buena es la marcada en verde. Pulsa «Atrás» si quieres releerla.';
   };
   HW.V.leccion.after = function (root) { root.querySelectorAll('.hot').forEach(function (g) { g.addEventListener('click', function () { var s = HW.boardSpots[+g.dataset.spot - 1]; HW.toast(s.n + ' · ' + s.k); }); }); };
   HW.A.back = function () { HW.go('aprender'); };
