@@ -72,7 +72,7 @@
   function block(b) {
     if (b.p) return '<p>' + b.p + '</p>';
     if (b.h) return '<h3>' + b.h + '</h3>';
-    if (b.c) { var c = b.c; return '<article class="concept"><h3>' + c.h + '</h3><span class="term">' + c.term + '</span><dl><div><dt class="k-que">Qué es</dt><dd>' + c.q + '</dd></div><div><dt class="k-ana">En la cocina</dt><dd>' + c.a + '</dd></div><div><dt class="k-eje">Ejemplo real</dt><dd>' + c.e + '</dd></div><div><dt class="k-tra">Trampa típica</dt><dd>' + c.t + '</dd></div></dl></article>'; }
+    if (b.c) return conceptHtml(b.c);
     if (b.mine) return '<div class="box mine"><h4>Con tu PC</h4><p>' + b.mine + '</p></div>';
     if (b.tip) return '<div class="box tip"><p>' + b.tip + '</p></div>';
     if (b.warn) return '<div class="box warn"><p>' + b.warn + '</p></div>';
@@ -122,7 +122,7 @@
       if (b.c && concepts.length >= 3 && k % 2 === 1) {
         var others = concepts.filter(function (x) { return x !== b.c; });
         var o1 = others[k % others.length], o2 = others[(k + 1) % others.length];
-        var opts = [b.c.a, o1.a, o2.a], rot = k % 3, ord = [0, 1, 2].map(function (j) { return (j + rot) % 3; });
+        var opts = [b.c.q, o1.q, o2.q], rot = k % 3, ord = [0, 1, 2].map(function (j) { return (j + rot) % 3; });
         out.push({ check: { h: b.c.h, opts: ord.map(function (j) { return opts[j]; }), ok: ord.indexOf(0) } });
       }
     });
@@ -133,9 +133,14 @@
     var es = HW.essentials && HW.essentials[L.id]; if (!es) return '';
     return '<div class="box ess"><h4>' + title + '</h4><ol>' + es.map(function (x) { return '<li>' + h(x) + '</li>'; }).join('') + '</ol></div>';
   }
-  function compactConcept(c) {
-    return '<article class="concept"><h3>' + c.h + '</h3><span class="term">' + c.term + '</span><dl><div><dt class="k-que">Qué es</dt><dd>' + c.q + '</dd></div><div><dt class="k-ana">En la cocina</dt><dd>' + c.a + '</dd></div></dl>' +
-      '<details class="more"><summary>Ver ejemplo real y trampa</summary><dl><div><dt class="k-eje">Ejemplo real</dt><dd>' + c.e + '</dd></div><div><dt class="k-tra">Trampa típica</dt><dd>' + c.t + '</dd></div></dl></details></article>';
+  function deepOf(c) { var id = (location.hash.match(/leccion-([a-z])/) || [])[1]; return c.d || (id && HW.deep && HW.deep[id] && HW.deep[id][c.h]) || ''; }
+  function conceptHtml(c) {
+    var d = deepOf(c);
+    return '<article class="concept"><h3>' + c.h + '</h3><span class="term">' + c.term + '</span><dl>' +
+      '<div><dt class="k-que">Qué es</dt><dd>' + c.q + '</dd></div>' +
+      (d ? '<div class="deep"><dt class="k-deep">Cómo funciona de verdad</dt><dd>' + d + '</dd></div>' : '') +
+      '<div><dt class="k-ana">Para recordarlo (en la cocina)</dt><dd>' + c.a + '</dd></div>' +
+      '<div><dt class="k-eje">Ejemplo real</dt><dd>' + c.e + '</dd></div><div><dt class="k-tra">Trampa típica</dt><dd>' + c.t + '</dd></div></dl></article>';
   }
   HW.V.leccion = function (id) {
     var L = HW.lesson(id); if (!L) return HW.V.aprender();
@@ -156,8 +161,8 @@
     else if (i === n - 1) body = essHtml(L, 'Repaso: lo esencial') + quiz + nav;
     else {
       var s = sl[i - 1];
-      body = s.check ? '<div class="card q check"><div class="eyebrow">¿Lo pillas?</div><b>«' + s.check.h + '», en la cocina, es…</b>' + s.check.opts.map(function (o, j) { return '<button class="opt" data-act="chk" data-ok="' + (j === s.check.ok ? 1 : 0) + '">' + o + '</button>'; }).join('') + '<p class="explain small" hidden></p></div>'
-        : s.blocks.map(function (b) { return b.c ? compactConcept(b.c) : block(b); }).join('');
+      body = s.check ? '<div class="card q check"><div class="eyebrow">¿Lo pillas?</div><b>¿Qué es «' + s.check.h + '»?</b>' + s.check.opts.map(function (o, j) { return '<button class="opt" data-act="chk" data-ok="' + (j === s.check.ok ? 1 : 0) + '">' + o + '</button>'; }).join('') + '<p class="explain small" hidden></p></div>'
+        : s.blocks.map(function (b) { return b.c ? conceptHtml(b.c) : block(b); }).join('');
     }
     return '<article class="lesson-body step">' + head +
       '<div class="steps" aria-label="Progreso de la lección"><i style="width:' + Math.round(i / (n - 1) * 100) + '%"></i></div><p class="tiny muted">Tarjeta ' + (i + 1) + ' de ' + n + '</p>' +

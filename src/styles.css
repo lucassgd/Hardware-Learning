@@ -150,6 +150,9 @@ nav.tabs button[aria-current="page"] svg { stroke: var(--accent); }
 .concept dd { margin: 2px 0 0; }
 .concept dt.k-que { color: var(--fg); }
 .concept dt.k-ana { color: var(--accent); }
+.concept dt.k-deep { color: var(--b); }
+.concept .deep { background: var(--surface-2, rgba(127,127,127,.08)); border-left: 3px solid var(--b); border-radius: 6px; padding: 8px 10px; margin: 0 -4px; }
+.concept .deep dd { line-height: 1.55; }
 .concept dt.k-eje { color: var(--b); }
 .concept dt.k-tra { color: var(--bad); }
 .box { border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }

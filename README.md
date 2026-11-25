@@ -32,3 +32,5 @@ Copia una línea de su familia en `src/data/cpus.js` o `src/data/gpus.js` y camb
 - Los índices de rendimiento son **aproximados**, recopilados de las tablas de rendimiento relativo de TechPowerUp y de Hardware Unboxed (no de UserBenchmark). Cada ficha indica si el dato sale de reseñas, es estimado o está por verificar.
 - Juegos de CPU: Ryzen 7 9800X3D = 100 a 1080p. Multinúcleo: Ryzen 9 9950X = 100. Gráficas: RTX 5090 = 100 a 1440p; 1080p y 4K se estiman a partir de ese índice.
 - No han salido (a 11/11/2026): Zen 6 de sobremesa, Core Ultra 400 «Nova Lake» (LGA1954), RTX 50 SUPER y Arc B770. Aparecen como «por verificar».
+
+- `src/data/deep.js`: teoría «Cómo funciona de verdad» de cada concepto.

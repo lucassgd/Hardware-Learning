@@ -4,7 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 const r = (p) => readFileSync(new URL(p, import.meta.url), 'utf8');
 const css = r('./src/styles.css');
-const order = ['data/cpus.js', 'data/gpus.js', 'data/platform.js', 'data/svg.js', 'data/lessons1.js', 'data/lessons2.js', 'data/essentials.js', 'data/questions.js', 'data/glossary.js',
+const order = ['data/cpus.js', 'data/gpus.js', 'data/platform.js', 'data/svg.js', 'data/lessons1.js', 'data/lessons2.js', 'data/essentials.js', 'data/deep.js', 'data/questions.js', 'data/glossary.js',
   'js/engine.js', 'js/core.js', 'js/ui.js', 'js/tools.js', 'js/practice.js', 'js/main.js'];
 const js = order.map((f) => `/* ==== ${f} ==== */\n` + r('./src/' + f)).join('\n');
 const body = r('./src/index.html');
